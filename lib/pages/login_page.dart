@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: Container(
+          child: SizedBox(
         width: MediaQuery.of(context).size.width / 2,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
