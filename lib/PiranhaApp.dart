@@ -12,7 +12,7 @@ class PiranhaApp extends StatelessWidget {
         primaryColor: const Color(0xff224FB4),
         primaryColorDark: const Color(0xff0A3B51),
         primaryColorLight: const Color(0xff849DA7),
-        backgroundColor: const Color(0xffFDFFFC),
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         primarySwatch: const MaterialColor(
           0xff224FB4,
           <int, Color>{
