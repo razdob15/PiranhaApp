@@ -23,6 +23,15 @@ class _SinglePageChatState extends State<SinglePageChat> {
         isCurrUser: true),
   ];
 
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,13 +128,17 @@ class _SinglePageChatState extends State<SinglePageChat> {
                           hintText: "Write message...",
                           hintStyle: TextStyle(color: Colors.black54),
                           border: InputBorder.none),
+                          controller: myController,
                     ),
                   ),
                   SizedBox(
                     width: 15,
                   ),
                   FloatingActionButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      print(myController.text);
+                      myController.clear();
+                    },
                     child: Icon(
                       Icons.send,
                       color: Colors.white,
