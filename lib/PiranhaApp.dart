@@ -34,6 +34,7 @@ class PiranhaApp extends StatelessWidget {
       bodySmall: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
     ),
       ),
+      home: Text("Asd"),
     );
   }
 }
