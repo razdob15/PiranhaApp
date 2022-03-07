@@ -1,10 +1,20 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatelessWidget {
-  const CustomButton({Key? key}) : super(key: key);
+class Button extends StatelessWidget {
+  const Button(this.onPressed, this.text);
+
+  final VoidCallback onPressed;
+
+  final String text;
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ElevatedButton(onPressed: onPressed,
+    child: Text(text),
+    style: ButtonStyle(backgroundColor: MaterialStateProperty.all<Color>(Theme.of(context).primaryColor)),
+    
+    );
   }
 }
