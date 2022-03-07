@@ -14,9 +14,9 @@ class Message extends StatelessWidget {
     return Scaffold(
       body: Container(
         padding:
-            const EdgeInsets.only(left: 14, right: 14, top: 10, bottom: 10),
+            const EdgeInsets.only(left: 14, right: 14, top: 2, bottom: 2),
         child: Bubble(
-          margin: const BubbleEdges.only(top: 10),
+          margin: const BubbleEdges.only(top: 2),
           alignment: isCurrUser ? Alignment.topRight : Alignment.topLeft,
           nipWidth: 30,
           nipHeight: 10,
