@@ -21,7 +21,7 @@ class Message extends StatelessWidget {
           nipWidth: 30,
           nipHeight: 10,
           nip: isCurrUser ? BubbleNip.rightBottom : BubbleNip.leftBottom,
-          color: isCurrUser ? const Color.fromRGBO(225, 255, 199, 1.0) : const Color.fromARGB(0, 255, 255, 255),
+          color: isCurrUser ? Theme.of(context).primaryColorLight : Colors.white,
           child: Column(mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: isCurrUser ? CrossAxisAlignment.start : CrossAxisAlignment.end, 
           children: [
