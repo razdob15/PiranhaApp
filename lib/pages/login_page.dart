@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../widgets/button.dart';
-import '../input_widget.dart';
+import '../widgets/input_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
