@@ -64,10 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     await location.changeSettings(interval: 5000);
 
     location.onLocationChanged.listen((LocationData currentLocation) {
-      print(
-          'Latitude: ${currentLocation.latitude} Longitude: ${currentLocation.longitude}');
-      print(DateTime.fromMillisecondsSinceEpoch(currentLocation.time!.toInt()));
-      // sendLocationToServer();
+      sendLocationToServer();
       setState(() {
         _currentPosition = currentLocation;
       });
