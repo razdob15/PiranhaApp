@@ -1,13 +1,14 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-import 'widgets/message.dart';
+import 'package:flutter/material.dart';
+import 'package:location/location.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(PiranhaApp());
 }
 
 class PiranhaApp extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -31,8 +32,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   Location location = Location();
-
-  LocationData? _currentPosition;
 
   @override
   void initState() {
@@ -61,26 +60,23 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     await location.enableBackgroundMode(enable: true);
-    await location.changeSettings(interval: 5000);
+    await location.changeSettings(interval: 10000);
 
     location.onLocationChanged.listen((LocationData currentLocation) {
-      sendLocationToServer();
-      setState(() {
-        _currentPosition = currentLocation;
-      });
+      sendLocationToServer(currentLocation);
     });
   }
 
-  void sendLocationToServer() async {
-    var response = await http.post(Uri.parse('http://10.10.244.48:5000/location'),
+  void sendLocationToServer(LocationData currentLocation) async {
+    await http.post(Uri.parse('http://10.10.244.48:5000/location'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode({
-          'latitude': _currentPosition?.latitude,
-          'longitude': _currentPosition?.longitude,
+          'latitude': currentLocation.latitude,
+          'longitude': currentLocation.longitude,
           'userId': 5,
-          'time': _currentPosition!.time!.toInt()
+          'time': currentLocation.time!.toInt()
         }));
   }
 
