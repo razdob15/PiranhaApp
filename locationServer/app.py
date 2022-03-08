@@ -15,15 +15,15 @@ def check_users():
         minutes_passed = time_difference.total_seconds() / 60
         if minutes_passed > 10:
             user["isActive"] = False
-            requests.post('http://10.10.244.44:3000', json=user)
+            requests.post('http://10.10.244.44:3000/mashtaps', json=user)
 
 
-@app.route('/location', methods=['POST', 'GET'])
+@app.route('/location', methods=['POST'])
 def send_locations():
     current_location = request.json
     users.append(current_location)
     current_location["isActive"] = True
-    r = requests.post('http://10.10.244.44:3000', json=current_location)
+    r = requests.post('http://10.10.244.44:3000/mashtaps', json=current_location)
     print(r)
     return 'location was sent successfully'
 
