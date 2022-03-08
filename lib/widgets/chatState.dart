@@ -3,11 +3,9 @@ import 'package:piranhaapp/screens/singlePageChat.dart';
 
 class ConversationList extends StatefulWidget{
   String sentFrom;
-  String me;
   String messageText;
-  String imageUrl;
   DateTime time;
-  ConversationList({Key? key, required this.sentFrom, required this.me,required this.messageText,required this.imageUrl,required this.time}) : super(key: key);
+  ConversationList({Key? key, required this.sentFrom, required this.messageText, required this.time}) : super(key: key);
   @override
   _ConversationListState createState() => _ConversationListState();
 }
@@ -19,7 +17,7 @@ class _ConversationListState extends State<ConversationList> {
       onTap: (){
          Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SinglePageChat(sentFrom: widget.sentFrom, me: widget.sentFrom)),
+              MaterialPageRoute(builder: (context) => SinglePageChat(sentFrom: widget.sentFrom)),
             );
       },
       child: Container(
