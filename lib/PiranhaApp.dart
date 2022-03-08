@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piranhaapp/screens/chatsPage.dart';
 
 class PiranhaApp extends StatelessWidget {
   const PiranhaApp({Key? key}) : super(key: key);
@@ -12,7 +13,7 @@ class PiranhaApp extends StatelessWidget {
         primaryColor: const Color(0xff224FB4),
         primaryColorDark: const Color(0xff0A3B51),
         primaryColorLight: const Color(0xff849DA7),
-        backgroundColor: const Color(0xffFDFFFC),
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         primarySwatch: const MaterialColor(
           0xff224FB4,
           <int, Color>{
@@ -34,7 +35,14 @@ class PiranhaApp extends StatelessWidget {
       bodySmall: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
     ),
       ),
-      home: Text("Asd"),
+      home: Scaffold (
+      appBar: AppBar(
+        title: Text('ffff'),
+        centerTitle: true,
+        backgroundColor: Colors.green,
+    ),
+    body: ChatPage() 
+  ),
     );
   }
 }

@@ -1,6 +1,3 @@
 import 'package:flutter/material.dart';
-import 'PiranhaApp.dart';
-
-void main() {
-  runApp(const PiranhaApp());
-}
+import 'package:piranhaapp/PiranhaApp.dart';
+void main() => runApp(const PiranhaApp());
