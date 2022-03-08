@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './chatsPage.dart';
+import 'screens/chatsPage.dart';
 void main() => runApp(MaterialApp(
 
     home: Scaffold (
@@ -11,3 +11,4 @@ void main() => runApp(MaterialApp(
     body: cathPage() 
   ),
 ));
+

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './widgets/chatsList.dart';
-import './widgets/searchBar.dart';
+import '../widgets/chatsList.dart';
+import '../widgets/searchBar.dart';
 class cathPage extends StatefulWidget {
   // final Function(String) onChange;
   // cathPage({Key? key, required this.onChange}) : super(key: key);
