@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:piranhaapp/screens/chatsPage.dart';
+import 'package:piranhaapp/screens/login_page.dart';
 
 class PiranhaApp extends StatelessWidget {
   const PiranhaApp({Key? key}) : super(key: key);
@@ -41,7 +42,7 @@ class PiranhaApp extends StatelessWidget {
         centerTitle: true,
         backgroundColor: Colors.green,
     ),
-    body: ChatPage() 
+    body: LoginPage() 
   ),
     );
   }

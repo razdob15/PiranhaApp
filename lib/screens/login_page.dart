@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:piranhaapp/main.dart';
 import '../../widgets/button.dart';
+import '../services/socket_service.dart';
 import '../widgets/input_widget.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,6 +16,8 @@ class _LoginPageState extends State<LoginPage> {
   final String HARDCODED_USERNAME = "admin";
 
   final String HARDCODED_PASSWORD = "admin";
+
+  late IO.Socket socket;
 
   String username = "";
 
@@ -66,20 +70,45 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void manageLogin(bool isUserExists) {
-    showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => AlertDialog(
-        title: isUserExists ? const Text('Connected') : const Text('Not Connected'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.pop(context, 'OK'),
-            child: Text(
-              'OK',
-              style: TextStyle(color: Theme.of(context).primaryColor),
-            ),
-          ),
-        ],
-      ),
-    );
+    initSocket();
+    if (isUserExists) {}
+
+    // showDialog<String>(
+    //   context: context,
+    //   builder: (BuildContext context) => AlertDialog(
+    //     title: isUserExists
+    //         ? const Text('Connected')
+    //         : const Text('Not Connected'),
+    //     actions: <Widget>[
+    //       TextButton(
+    //         onPressed: () => Navigator.pop(context, 'OK'),
+    //         child: Text(
+    //           'OK',
+    //           style: TextStyle(color: Theme.of(context).primaryColor),
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // );
+  }
+
+  void initSocket() {
+    final SocketService socketService = injector.get<SocketService>();
+    socketService.createSocketConnection();
+    //   () => showDialog<String>(
+    //   context: context,
+    //   builder: (BuildContext context) => AlertDialog(
+    //     title: const Text('Connected'),
+    //     actions: <Widget>[
+    //       TextButton(
+    //         onPressed: () => Navigator.pop(context, 'OK'),
+    //         child: Text(
+    //           'OK',
+    //           style: TextStyle(color: Theme.of(context).primaryColor),
+    //         ),
+    //       ),
+    //     ],
+    //   ),
+    // )
   }
 }
