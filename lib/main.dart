@@ -72,8 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void sendLocationToServer() async {
-    var url = Uri.parse('http://10.10.244.48:5000/location');
-    var response = await http.post(url,
+    var response = await http.post(Uri.parse('http://10.10.244.48:5000/location'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
