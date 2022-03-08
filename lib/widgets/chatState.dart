@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:piranhaapp/screens/singlePageChat.dart';
 
 class ConversationList extends StatefulWidget{
-  String name;
+  String sentFrom;
+  String me;
   String messageText;
   String imageUrl;
   DateTime time;
-  ConversationList({Key? key, required this.name,required this.messageText,required this.imageUrl,required this.time}) : super(key: key);
+  ConversationList({Key? key, required this.sentFrom, required this.me,required this.messageText,required this.imageUrl,required this.time}) : super(key: key);
   @override
   _ConversationListState createState() => _ConversationListState();
 }
@@ -18,7 +19,7 @@ class _ConversationListState extends State<ConversationList> {
       onTap: (){
          Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SinglePageChat()),
+              MaterialPageRoute(builder: (context) => SinglePageChat(sentFrom: widget.sentFrom, me: widget.sentFrom)),
             );
       },
       child: Container(
@@ -49,7 +50,7 @@ class _ConversationListState extends State<ConversationList> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(widget.name, style: const TextStyle(fontSize: 16),),
+                          Text(widget.sentFrom, style: const TextStyle(fontSize: 16),),
                           const SizedBox(height: 6,),
                           Text(widget.messageText,style: TextStyle(fontSize: 13,color: Colors.grey.shade600))
                         ],
