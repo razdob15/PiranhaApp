@@ -5,9 +5,14 @@ import 'package:bubble/bubble.dart';
 class Message extends StatelessWidget {
   String text;
   DateTime time;
-  bool isCurrUser;
+  String senderId;
+  String currUserId;
 
-  Message({Key? key, required this.text, required this.time, required this.isCurrUser}) : super(key: key);
+  Message({Key? key, required this.text, required this.time, required this.currUserId, required this.senderId}) : super(key: key);
+
+  bool isCurrUser() {
+    return this.senderId == this.currUserId;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +22,13 @@ class Message extends StatelessWidget {
             const EdgeInsets.only(left: 14, right: 14, top: 2, bottom: 2),
         child: Bubble(
           margin: const BubbleEdges.only(top: 2),
-          alignment: isCurrUser ? Alignment.topRight : Alignment.topLeft,
+          alignment: isCurrUser() ? Alignment.topRight : Alignment.topLeft,
           nipWidth: 30,
           nipHeight: 10,
-          nip: isCurrUser ? BubbleNip.rightBottom : BubbleNip.leftBottom,
-          color: isCurrUser ? Theme.of(context).primaryColorLight : Colors.white,
+          nip: isCurrUser() ? BubbleNip.rightBottom : BubbleNip.leftBottom,
+          color: isCurrUser() ? Theme.of(context).primaryColorLight : Colors.white,
           child: Column(mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: isCurrUser ? CrossAxisAlignment.start : CrossAxisAlignment.end, 
+          crossAxisAlignment: isCurrUser() ? CrossAxisAlignment.start : CrossAxisAlignment.end, 
           children: [
             Text(text),
             Text(
