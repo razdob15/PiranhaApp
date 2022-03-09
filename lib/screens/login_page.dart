@@ -50,9 +50,8 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height / 75),
                 Button(() {
-                  bool isUserExists = username == HARDCODED_USERNAME &&
-                      password == HARDCODED_PASSWORD;
-                  manageLogin(isUserExists);
+                  manageLogin(username == HARDCODED_USERNAME &&
+                      password == HARDCODED_PASSWORD);
                 }, "Log In"),
                 SizedBox(height: MediaQuery.of(context).size.height / 75),
                 const Text(
@@ -70,8 +69,9 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void manageLogin(bool isUserExists) {
-    initSocket();
-    if (isUserExists) {}
+    if (isUserExists) {
+      initSocket();
+    }
 
     // showDialog<String>(
     //   context: context,
@@ -94,21 +94,20 @@ class _LoginPageState extends State<LoginPage> {
 
   void initSocket() {
     final SocketService socketService = injector.get<SocketService>();
-    socketService.createSocketConnection();
-    //   () => showDialog<String>(
-    //   context: context,
-    //   builder: (BuildContext context) => AlertDialog(
-    //     title: const Text('Connected'),
-    //     actions: <Widget>[
-    //       TextButton(
-    //         onPressed: () => Navigator.pop(context, 'OK'),
-    //         child: Text(
-    //           'OK',
-    //           style: TextStyle(color: Theme.of(context).primaryColor),
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // )
+    socketService.createSocketConnection((data) => showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text(data),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: Text(
+                  'OK',
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }

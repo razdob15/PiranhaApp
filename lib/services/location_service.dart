@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
 
-void main() {
-  runApp(PiranhaApp());
-}
+// void main() {
+//   runApp(PiranhaApp());
+// }
 
 class PiranhaApp extends StatelessWidget {
   @override
