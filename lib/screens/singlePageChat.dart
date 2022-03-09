@@ -9,38 +9,10 @@ class SinglePageChat extends StatefulWidget {
 }
 
 class _SinglePageChatState extends State<SinglePageChat> {
-    final Map<int, List<Message>> chatUsers = {111111111: [ Message(text: "Hello Will",time: DateTime.now(), currUserId: "Will", senderId: "Tom"),Message(text: "hi Tom",time: DateTime.now(), currUserId: "Tom", senderId: "Will")]
-  , 2222222222: [ Message(text: "Hi Will",time: DateTime.now(), currUserId: "Will", senderId: "Maya"),Message(text: "hi Maya",time: DateTime.now(), currUserId: "Maya", senderId: "Will")]};
-  
-  //List<Message> messages = chatUsers.values.elementAt(0);
-  // List<Message> messages = [
-  //   Message(
-  //       text: "Hello, Will",
-  //       time: DateTime.now(),
-  //       currUserId: "Kriss",
-  //       senderId: "Kriss"),
-  //   Message(
-  //       text: "How have you been?",
-  //       time: DateTime.now(),
-  //       currUserId: "Kriss",
-  //       senderId: "Kriss"),
-  //   Message(
-  //       text: "Hey Kriss, I am doing fine dude. wbu?",
-  //       time: DateTime.now(),
-  //       currUserId: "Kriss",
-  //       senderId: "Will"),
-  //   Message(
-  //       text: "ehhhh, doing OK.",
-  //       time: DateTime.now(),
-  //       currUserId: "Kriss",
-  //       senderId: "Kriss"),
-  //   Message(
-  //       text: "Is there any thing wrong?",
-  //       time: DateTime.now(),
-  //       currUserId: "Kriss",
-  //       senderId: "Will"),
-  // ];
 
+  final Map<int, List<Message>> chatUsers = {111111111: [ Message(text: "Hello Will",time: DateTime.now(), currUserId: "Will", senderId: "Tom"),Message(text: "hi Tom",time: DateTime.now(), currUserId: "Will", senderId: "Will")]
+  , 2222222222: [ Message(text: "Hi Will",time: DateTime.now(), currUserId: "Will", senderId: "Maya"),Message(text: "hi Maya",time: DateTime.now(), currUserId: "Will", senderId: "Will"), Message(text: "By",time: DateTime.now(), currUserId: "Will", senderId: "Maya")]};
+  
   final myController = TextEditingController();
 
   @override
@@ -87,8 +59,8 @@ class _SinglePageChatState extends State<SinglePageChat> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      const Text(
-                        "Kriss Benwat",
+                      Text(
+                        widget.sentFrom,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w600),
                       ),
