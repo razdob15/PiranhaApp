@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class ChatUsers{
-  String name;
+  int sentFrom;
   String messageText;
-  String imageURL;
   DateTime time;
-  ChatUsers({required this.name,required this.messageText,required this.imageURL,required this.time});
+  ChatUsers({required this.sentFrom, required this.messageText,required this.time});
 }
