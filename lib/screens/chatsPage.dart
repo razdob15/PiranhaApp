@@ -18,7 +18,7 @@ class InputState extends State<ChatPage> {
         Image.asset
     ('logoChatPage.jpeg',
     width: 1000,
-    height: 200,
+    height: 230,
     fit: BoxFit.fill,
  ),
         SearchBar(),

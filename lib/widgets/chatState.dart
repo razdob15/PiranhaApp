@@ -42,8 +42,9 @@ class _ConversationListState extends State<ConversationList> {
         decoration: BoxDecoration(
           border: const Border(
             bottom: BorderSide(width: 1.0, color: Colors.white),
+            top: BorderSide(width: 1.0, color: Colors.white)
           ),
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).primaryColorDark,
         ),
         child: Row(
           children: <Widget>[
@@ -66,14 +67,14 @@ class _ConversationListState extends State<ConversationList> {
                         children: <Widget>[
                           Text(
                             widget.sentFrom,
-                            style: const TextStyle(fontSize: 20, color: Colors.white),
+                            style: const TextStyle(fontSize: 20, color: Color.fromARGB(255, 219, 218, 218)),
                           ),
                           const SizedBox(
                             height: 6,
                           ),
                           Text(widget.messageText,
                               style: const TextStyle(
-                                  fontSize: 15, color: Colors.white))
+                                  fontSize: 15, color: Color.fromARGB(255, 219, 218, 218)))
                         ],
                       ),
                     ),
@@ -82,7 +83,7 @@ class _ConversationListState extends State<ConversationList> {
               ),
             ),
             Text('${widget.time.hour}:${widget.time.minute}',
-                style: const TextStyle(fontSize: 12, color: Colors.white))
+                style: const TextStyle(fontSize: 12, color: Color.fromARGB(255, 219, 218, 218)))
           ],
         ),
       ),
