@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'screens/chatsPage.dart';
-void main() => runApp(MaterialApp(
+import 'package:piranhaapp/PiranhaApp.dart';
+import 'package:flutter_simple_dependency_injection/injector.dart';
 
-    home: Scaffold (
-      appBar: AppBar(
-        title: Text('Piranha'),
-        centerTitle: true,
-        backgroundColor: Colors.green,
-    ),
-    body: cathPage() 
-  ),
-));
+import 'services/dependency_injection.dart';
 
+class AppInitializer {
+  initialise(Injector injector) async {}
+}
 
+late Injector injector;
 
+void main() async {
+  DependencyInjection().initialise(Injector());
+  injector = Injector();
+  await AppInitializer().initialise(injector);
 
-
-
+  runApp(const PiranhaApp());
+}
