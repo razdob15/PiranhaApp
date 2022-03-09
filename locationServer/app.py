@@ -11,7 +11,7 @@ def check_users():
     threading.Timer(60 * 11, check_users).start()
     for user in users.values():
         current_time = datetime.now()
-        time_difference = current_time - user['time']
+        time_difference = current_time - datetime.fromisoformat(user['time'])
         minutes_passed = time_difference.total_seconds() / 60
         if minutes_passed > 10:
             user["isActive"] = False
