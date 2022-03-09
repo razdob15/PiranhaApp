@@ -45,7 +45,7 @@ class PiranhaApp extends StatelessWidget {
             centerTitle: true,
             backgroundColor: Colors.green,
           ),
-          body: LoginPage()),
+          body: ChatPage()),
     );
   }
 }
