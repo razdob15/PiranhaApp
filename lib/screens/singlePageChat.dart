@@ -9,34 +9,37 @@ class SinglePageChat extends StatefulWidget {
 }
 
 class _SinglePageChatState extends State<SinglePageChat> {
-
-  List<Message> messages = [
-    Message(
-        text: "Hello, Will",
-        time: DateTime.now(),
-        currUserId: "Kriss",
-        senderId: "Kriss"),
-    Message(
-        text: "How have you been?",
-        time: DateTime.now(),
-        currUserId: "Kriss",
-        senderId: "Kriss"),
-    Message(
-        text: "Hey Kriss, I am doing fine dude. wbu?",
-        time: DateTime.now(),
-        currUserId: "Kriss",
-        senderId: "Will"),
-    Message(
-        text: "ehhhh, doing OK.",
-        time: DateTime.now(),
-        currUserId: "Kriss",
-        senderId: "Kriss"),
-    Message(
-        text: "Is there any thing wrong?",
-        time: DateTime.now(),
-        currUserId: "Kriss",
-        senderId: "Will"),
-  ];
+    final Map<int, List<Message>> chatUsers = {111111111: [ Message(text: "Hello Will",time: DateTime.now(), currUserId: "Will", senderId: "Tom"),Message(text: "hi Tom",time: DateTime.now(), currUserId: "Tom", senderId: "Will")]
+  , 2222222222: [ Message(text: "Hi Will",time: DateTime.now(), currUserId: "Will", senderId: "Maya"),Message(text: "hi Maya",time: DateTime.now(), currUserId: "Maya", senderId: "Will")]};
+  
+  //List<Message> messages = chatUsers.values.elementAt(0);
+  // List<Message> messages = [
+  //   Message(
+  //       text: "Hello, Will",
+  //       time: DateTime.now(),
+  //       currUserId: "Kriss",
+  //       senderId: "Kriss"),
+  //   Message(
+  //       text: "How have you been?",
+  //       time: DateTime.now(),
+  //       currUserId: "Kriss",
+  //       senderId: "Kriss"),
+  //   Message(
+  //       text: "Hey Kriss, I am doing fine dude. wbu?",
+  //       time: DateTime.now(),
+  //       currUserId: "Kriss",
+  //       senderId: "Will"),
+  //   Message(
+  //       text: "ehhhh, doing OK.",
+  //       time: DateTime.now(),
+  //       currUserId: "Kriss",
+  //       senderId: "Kriss"),
+  //   Message(
+  //       text: "Is there any thing wrong?",
+  //       time: DateTime.now(),
+  //       currUserId: "Kriss",
+  //       senderId: "Will"),
+  // ];
 
   final myController = TextEditingController();
 
@@ -112,7 +115,7 @@ class _SinglePageChatState extends State<SinglePageChat> {
       body: Stack(
         children: <Widget>[
           ListView.builder(
-            itemCount: messages.length,
+            itemCount: (chatUsers[int.parse(widget.sentFrom)])?.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
               return Row(
@@ -120,7 +123,7 @@ class _SinglePageChatState extends State<SinglePageChat> {
                   Flexible(
                       child: SizedBox(
                     height: 50,
-                    child: messages[index],
+                    child: (chatUsers[int.parse(widget.sentFrom)])![index],
                   ))
                 ],
               );
