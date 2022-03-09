@@ -40,10 +40,11 @@ class PiranhaApp extends StatelessWidget {
         ),
       ),
       home: Scaffold(
+        
           appBar: AppBar(
-            title: Text('ffff'),
+            title: Text('Piranha'),
             centerTitle: true,
-            backgroundColor: Colors.green,
+            backgroundColor:  Color.fromARGB(255, 35, 84, 126),
           ),
           body: ChatPage()),
     );

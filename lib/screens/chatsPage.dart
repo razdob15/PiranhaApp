@@ -15,11 +15,14 @@ class InputState extends State<ChatPage> {
   
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SearchBar(),
-        Flexible(child: Listtt()),
-      ]
+    return Container(
+      color: Theme.of(context).primaryColorDark ,
+      child: Column(
+        children: [
+          SearchBar(),
+          Flexible(child: Listtt()),
+        ]
+      ),
     );
   }
 }
