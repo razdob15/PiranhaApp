@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:piranhaapp/main.dart';
 import 'package:piranhaapp/screens/chatsPage.dart';
+import 'package:piranhaapp/utils/location_util.dart';
 import 'package:piranhaapp/utils/user_util.dart';
 import 'package:piranhaapp/widgets/message.dart';
 import '../../widgets/button.dart';
@@ -43,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('logo.jpeg'),
+                  Image.asset('assets/logo.jpeg'),
                   Column(
                     children: [
                       GeneralInput(
@@ -87,9 +88,8 @@ class _LoginPageState extends State<LoginPage> {
   bool manageLogin(bool isUserExists) {
     if (isUserExists) {
       changeUserID(username);
-      // fetchLocation();
       initSocket();
-
+      fetchLocation();
       return true;
     } else {
       showDialog<String>(

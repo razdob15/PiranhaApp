@@ -27,7 +27,7 @@ class InputState extends State<ChatPage> {
     return Scaffold(
       body: Column(children: [
         Image.asset(
-          'logoChatPage.jpeg',
+          'assets/logoChatPage.jpeg',
           width: 1000,
           height: 230,
           fit: BoxFit.fill,

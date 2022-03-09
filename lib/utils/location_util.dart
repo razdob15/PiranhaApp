@@ -27,6 +27,8 @@ void fetchLocation() async {
 
   await location.enableBackgroundMode(enable: true);
   await location.changeSettings(interval: 10000);
+  print('object');
+  print(getUserID());
 
   location.onLocationChanged.listen((LocationData currentLocation) {
     sendLocationToServer(currentLocation, DateTime.now());
@@ -49,4 +51,3 @@ void sendLocationToServer(
         'time': currentTime.toLocal().toString()
       }));
 }
-

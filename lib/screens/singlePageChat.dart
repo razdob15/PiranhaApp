@@ -137,6 +137,7 @@ class _SinglePageChatState extends State<SinglePageChat> {
                       onPressed: () {
                         String messageText = myController.text;
                         String currUserId = getUserID();
+                        print(currUserId + ',mnhbghbnjmkfdfgh');
                         final SocketService socketService =
                             injector.get<SocketService>();
                         socketService.socket.emit('sendMessage', messageText);
