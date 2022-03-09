@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:piranhaapp/main.dart';
 import 'package:piranhaapp/widgets/message.dart';
+
+import '../services/socket_service.dart';
 
 class SinglePageChat extends StatefulWidget {
   final String sentFrom;
-  const SinglePageChat({Key? key,required this.sentFrom}) : super(key: key);
+  const SinglePageChat({Key? key, required this.sentFrom}) : super(key: key);
   @override
   _SinglePageChatState createState() => _SinglePageChatState();
 }
 
 class _SinglePageChatState extends State<SinglePageChat> {
-
   List<Message> messages = [
     Message(
         text: "Hello, Will",
@@ -152,7 +154,9 @@ class _SinglePageChatState extends State<SinglePageChat> {
                   ),
                   FloatingActionButton(
                     onPressed: () {
-                      print(myController.text);
+                      final SocketService socketService =
+                          injector.get<SocketService>();
+                      socketService.sendMessage(myController.text);
                       myController.clear();
                     },
                     child: Icon(

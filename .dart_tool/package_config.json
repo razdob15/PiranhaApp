@@ -68,6 +68,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_simple_dependency_injection",
+      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_simple_dependency_injection-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///D:/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -128,6 +134,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "logging",
+      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/logging-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.11",
       "packageUri": "lib/",
@@ -160,6 +172,18 @@
     {
       "name": "sky_engine",
       "rootUri": "file:///D:/flutter/bin/cache/pkg/sky_engine",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "socket_io_client",
+      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/socket_io_client-1.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "socket_io_common",
+      "rootUri": "file:///D:/flutter/.pub-cache/hosted/pub.dartlang.org/socket_io_common-1.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -218,7 +242,7 @@
       "languageVersion": "2.16"
     }
   ],
-  "generated": "2022-03-08T15:16:49.134787Z",
+  "generated": "2022-03-09T15:10:12.432532Z",
   "generator": "pub",
   "generatorVersion": "2.16.1"
 }

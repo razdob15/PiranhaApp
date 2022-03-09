@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketService {
@@ -16,8 +17,23 @@ class SocketService {
         this.socket.on("connected", (data) => onConnected(data));
         });
       this.socket.on("reconnect", (_) => print("Reconnected"));
+      this.socket.on('newMessage', (message) => 
+        Row(
+                children: [
+                  Flexible(
+                      child: SizedBox(
+                    height: 50,
+                    child: message,
+                  ))
+                ],
+              )
+      );
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  sendMessage(messageToSend) {
+    this.socket.emit('sendMessage', messageToSend);
   }
 }
