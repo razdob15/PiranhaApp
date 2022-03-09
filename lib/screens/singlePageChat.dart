@@ -2,25 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:piranhaapp/widgets/message.dart';
 
 class SinglePageChat extends StatefulWidget {
-  const SinglePageChat({Key? key}) : super(key: key);
-
+  final String sentFrom;
+  final String me;
+  const SinglePageChat({Key? key,required this.sentFrom, required this.me}) : super(key: key);
   @override
   _SinglePageChatState createState() => _SinglePageChatState();
 }
 
 class _SinglePageChatState extends State<SinglePageChat> {
+
   List<Message> messages = [
-    Message(text: "Hello, Will", time: DateTime.now(), isCurrUser: false),
-    Message(text: "How have you been?", time: DateTime.now(), isCurrUser: false),
+    Message(
+        text: "Hello, Will",
+        time: DateTime.now(),
+        currUserId: "Kriss",
+        senderId: "Kriss"),
+    Message(
+        text: "How have you been?",
+        time: DateTime.now(),
+        currUserId: "Kriss",
+        senderId: "Kriss"),
     Message(
         text: "Hey Kriss, I am doing fine dude. wbu?",
         time: DateTime.now(),
-        isCurrUser: true),
-    Message(text: "ehhhh, doing OK.", time: DateTime.now(), isCurrUser: false),
+        currUserId: "Kriss",
+        senderId: "Will"),
+    Message(
+        text: "ehhhh, doing OK.",
+        time: DateTime.now(),
+        currUserId: "Kriss",
+        senderId: "Kriss"),
     Message(
         text: "Is there any thing wrong?",
         time: DateTime.now(),
-        isCurrUser: true),
+        currUserId: "Kriss",
+        senderId: "Will"),
   ];
 
   final myController = TextEditingController();
@@ -102,7 +118,8 @@ class _SinglePageChatState extends State<SinglePageChat> {
             itemBuilder: (context, index) {
               return Row(
                 children: [
-                  Flexible(child: SizedBox(
+                  Flexible(
+                      child: SizedBox(
                     height: 50,
                     child: messages[index],
                   ))
@@ -128,7 +145,7 @@ class _SinglePageChatState extends State<SinglePageChat> {
                           hintText: "Write message...",
                           hintStyle: TextStyle(color: Colors.black54),
                           border: InputBorder.none),
-                          controller: myController,
+                      controller: myController,
                     ),
                   ),
                   SizedBox(

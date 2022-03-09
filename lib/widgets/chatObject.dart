@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 
 class ChatUsers{
-  String name;
+  String sentFrom;
+  String me;
   String messageText;
   String imageURL;
-  String time;
-  bool isRead;
-  ChatUsers({required this.name,required this.messageText,required this.imageURL,required this.time, required this.isRead});
+  DateTime time;
+  ChatUsers({required this.sentFrom, required this.me, required this.messageText,required this.imageURL,required this.time});
 }

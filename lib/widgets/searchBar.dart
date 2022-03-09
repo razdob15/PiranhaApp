@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class searchBar extends StatefulWidget {
+class SearchBar extends StatefulWidget {
   // final Function(String) onChange;
   // sesrchBar({Key? key, required this.onChange}) : super(key: key);
 
@@ -11,7 +11,7 @@ class searchBar extends StatefulWidget {
   }
 }
 
-class InputState extends State<searchBar> {
+class InputState extends State<SearchBar> {
   
   @override
   Widget build(BuildContext context) {
