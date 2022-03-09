@@ -1,10 +1,15 @@
+import 'dart:collection';
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+
+import '../widgets/message.dart';
 
 class SocketService {
   late IO.Socket socket;
 
-  createSocketConnection(Function onConnected) {
+  createSocketConnection(Function onConnected, HashMap messages) {
     try {
       socket = IO.io('http://localhost:3000', <String, dynamic>{
         'transports': ['websocket'],
@@ -14,7 +19,7 @@ class SocketService {
       this.socket.on("connect", (_) {
         this.socket.emit('getInfo');
         print("cool");
-        this.socket.on("connected", (data) => onConnected(data));
+        this.socket.on("connected", (data) => onConnected(data, messages));
         });
       this.socket.on("reconnect", (_) => print("Reconnected"));
       this.socket.on('newMessage', (message) => 
@@ -34,6 +39,6 @@ class SocketService {
   }
 
   sendMessage(messageToSend) {
-    this.socket.emit('sendMessage', messageToSend);
+    this.socket.emit('sendMessage', jsonEncode(messageToSend));
   }
 }

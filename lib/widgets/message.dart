@@ -21,10 +21,10 @@ class Message extends StatelessWidget {
         padding:
             const EdgeInsets.only(left: 14, right: 14, top: 2, bottom: 2),
         child: Bubble(
-          margin: const BubbleEdges.only(top: 2),
+          margin: const BubbleEdges.only(top: 10),
           alignment: isCurrUser() ? Alignment.topRight : Alignment.topLeft,
           nipWidth: 30,
-          nipHeight: 10,
+          nipHeight: 15,
           nip: isCurrUser() ? BubbleNip.rightBottom : BubbleNip.leftBottom,
           color: isCurrUser() ? Theme.of(context).primaryColorLight : Colors.white,
           child: Column(mainAxisSize: MainAxisSize.min,

@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:localstorage/localstorage.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
+import 'package:piranhaapp/utils/user_util.dart';
 
 void fetchLocation() async {
   Location location = Location();
@@ -25,6 +27,8 @@ void fetchLocation() async {
 
   await location.enableBackgroundMode(enable: true);
   await location.changeSettings(interval: 10000);
+  print('object');
+  print(getUserID());
 
   location.onLocationChanged.listen((LocationData currentLocation) {
     sendLocationToServer(currentLocation, DateTime.now());
@@ -46,8 +50,4 @@ void sendLocationToServer(
         'userId': getUserID(),
         'time': currentTime.toLocal().toString()
       }));
-}
-
-getUserID() {
-  return '123456789';
 }
