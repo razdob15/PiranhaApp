@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/chatsList.dart';
 import '../widgets/searchBar.dart';
-class cathPage extends StatefulWidget {
-  // final Function(String) onChange;
-  // cathPage({Key? key, required this.onChange}) : super(key: key);
+
+class ChatPage extends StatefulWidget {
 
 
   @override
@@ -12,13 +11,13 @@ class cathPage extends StatefulWidget {
   }
 }
 
-class InputState extends State<cathPage> {
+class InputState extends State<ChatPage> {
   
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        sesrchBar(),
+        SearchBar(),
         Flexible(child: Listtt()),
       ]
     );
