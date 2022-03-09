@@ -15,6 +15,7 @@ class PiranhaApp extends StatelessWidget {
         primaryColorDark: const Color(0xff0A3B51),
         primaryColorLight: const Color(0xff849DA7),
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        scaffoldBackgroundColor: Colors.black,
         primarySwatch: const MaterialColor(
           0xff224FB4,
           <int, Color>{
@@ -31,19 +32,20 @@ class PiranhaApp extends StatelessWidget {
           },
         ),
         textTheme: const TextTheme(
-      titleLarge: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold, fontFamily: 'Hind'),
-      titleSmall: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic, fontFamily: 'Hind'),
-      bodySmall: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
-    ),
+          titleLarge: TextStyle(
+              fontSize: 72.0, fontWeight: FontWeight.bold, fontFamily: 'Hind'),
+          titleSmall: TextStyle(
+              fontSize: 36.0, fontStyle: FontStyle.italic, fontFamily: 'Hind'),
+          bodySmall: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+        ),
       ),
-      home: Scaffold (
-      appBar: AppBar(
-        title: Text('ffff'),
-        centerTitle: true,
-        backgroundColor: Colors.green,
-    ),
-    body: LoginPage() 
-  ),
+      home: Scaffold(
+          appBar: AppBar(
+            title: Text('ffff'),
+            centerTitle: true,
+            backgroundColor: Colors.green,
+          ),
+          body: LoginPage()),
     );
   }
 }
