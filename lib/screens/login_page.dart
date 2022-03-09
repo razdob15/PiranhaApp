@@ -31,58 +31,66 @@ class _LoginPageState extends State<LoginPage> {
 
   final HashMap<String, List<Message>> messages = HashMap();
 
+  bool isLoading = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
           child: SizedBox(
         width: MediaQuery.of(context).size.width / 2,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset('logo.jpeg'),
-            Column(
-              children: [
-                GeneralInput(
-                  onChange: (input) {
-                    username = input;
-                  },
-                  labelText: "Enter Username",
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height / 75),
-                GeneralInput(
-                  onChange: (input) {
-                    password = input;
-                  },
-                  labelText: "Enter Password",
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height / 75),
-                Button(() {
-                  manageLogin(username == HARDCODED_USERNAME &&
-                      password == HARDCODED_PASSWORD);
-                }, "Log In"),
-                SizedBox(height: MediaQuery.of(context).size.height / 75),
-                const Text(
-                  "Not yet Registered? Sign Up",
-                  style: TextStyle(color: Colors.white),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height / 75),
-                Button(() => {}, "Sign Up")
-              ],
-            )
-          ],
-        ),
+        child: isLoading
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('logo.jpeg'),
+                  Column(
+                    children: [
+                      GeneralInput(
+                        onChange: (input) {
+                          username = input;
+                        },
+                        labelText: "Enter Username",
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 75),
+                      GeneralInput(
+                        onChange: (input) {
+                          password = input;
+                        },
+                        labelText: "Enter Password",
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 75),
+                      Button(() {
+                        if (manageLogin(username == HARDCODED_USERNAME &&
+                            password == HARDCODED_PASSWORD)) {
+                          isLoading = true;
+                        }
+                      }, "Log In"),
+                      SizedBox(height: MediaQuery.of(context).size.height / 75),
+                      const Text(
+                        "Not yet Registered? Sign Up",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 75),
+                      Button(() => {}, "Sign Up")
+                    ],
+                  )
+                ],
+              )
+            : const CircularProgressIndicator(
+                semanticsLabel: 'Loading',
+              ),
       )),
     );
   }
 
-  void manageLogin(bool isUserExists) {
+  bool manageLogin(bool isUserExists) {
     if (isUserExists) {
       changeUserID(username);
       // fetchLocation();
       initSocket();
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ChatPage(chatUsers: messages)));
+
+      return true;
     } else {
       showDialog<String>(
         context: context,
@@ -99,6 +107,7 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       );
+      return false;
     }
   }
 
@@ -122,6 +131,8 @@ class _LoginPageState extends State<LoginPage> {
           }
         }
       }
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ChatPage(chatUsers: messages)));
     }, messages);
   }
 

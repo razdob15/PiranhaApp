@@ -39,8 +39,7 @@ class PiranhaApp extends StatelessWidget {
           bodySmall: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
         ),
       ),
-      home: Scaffold(
-          body: LoginPage()),
+      home: LoginPage(),
     );
   }
 }
