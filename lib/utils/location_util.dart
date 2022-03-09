@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'package:localstorage/localstorage.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
+import 'package:piranhaapp/utils/user_util.dart';
 
 void fetchLocation() async {
   Location location = Location();
@@ -48,6 +50,3 @@ void sendLocationToServer(
       }));
 }
 
-getUserID() {
-  return '123456789';
-}
