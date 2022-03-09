@@ -8,7 +8,9 @@ import '../widgets/searchBar.dart';
 class ChatPage extends StatefulWidget {
   final Map<String, List<Message>> chatUsers;
 
-  const ChatPage({Key? key, required this.chatUsers}) : super(key: key);
+  ChatPage({Key? key, required this.chatUsers}) : super(key: key);
+
+  String searchInput = '';
 
   @override
   State<StatefulWidget> createState() {
@@ -19,7 +21,9 @@ class ChatPage extends StatefulWidget {
 class InputState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
-    print(widget.chatUsers['2']![0].currUserId + ' ' + widget.chatUsers['2']![0].currUserId);
+    print(widget.chatUsers['2']![0].currUserId +
+        ' ' +
+        widget.chatUsers['2']![0].currUserId);
     return Scaffold(
       body: Column(children: [
         Image.asset(
@@ -28,8 +32,12 @@ class InputState extends State<ChatPage> {
           height: 230,
           fit: BoxFit.fill,
         ),
-        SearchBar(),
-        Listtt(chatUsers: widget.chatUsers),
+        SearchBar(onChange: (value) {
+          setState(() {
+            widget.searchInput = value.toLowerCase();
+          });
+        }),
+        Listtt(chatUsers: widget.chatUsers, searchInput: widget.searchInput),
       ]),
     );
   }
