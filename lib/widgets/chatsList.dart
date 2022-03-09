@@ -1,11 +1,19 @@
-import 'dart:collection';
+// import 'dart:collection';
+// import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:piranhaapp/utils/user_util.dart';
 import 'package:piranhaapp/widgets/message.dart';
 import 'chatState.dart';
-import 'chatObject.dart';
+// import 'package:piranhaapp/widgets/message.dart';
 
 class Listtt extends StatefulWidget {
+  final Map<String, List<Message>> chatUsers;
+  final String searchInput;
+
+
+  const Listtt({Key? key, required this.chatUsers, required this.searchInput}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return InputState();
@@ -13,32 +21,31 @@ class Listtt extends StatefulWidget {
 }
 
 class InputState extends State<Listtt> {
-  
-  final Map<int, List<ChatUsers>> chatUsers = {111111111: [ChatUsers(sentFrom: 111111111, messageText: "What's upp?", time: DateTime.parse('1969-07-20 20:18:04Z')), ChatUsers(sentFrom: 3333333333, messageText: "hello", time: DateTime.parse('1969-07-20 20:20:04Z'))]
-                                            , 222222222: [ChatUsers(sentFrom: 111111111, messageText: "hiiiiii", time: DateTime.parse('1969-07-20 06:18:04Z'))]
-                                            , 333333333: [ChatUsers(sentFrom: 111111111, messageText: "Idannnnnnnn", time: DateTime.parse('1969-07-20 06:18:04Z')), ChatUsers(sentFrom: 111111111, messageText: "Roniiiiii", time: DateTime.parse('1969-07-20 06:18:04Z')) ]};
-  
-  // List<ChatUsers> chatUsers = [
-  //   ChatUsers(sentFrom: 111111111, messageText: "Awesome Setup", time: DateTime.parse('1969-07-20 20:18:04Z')),
-  //   ChatUsers(sentFrom: 222222222, messageText: "That's Great", time: DateTime.parse('1969-07-20 16:31Z')),
-  //   ChatUsers(sentFrom: 333333333, messageText: "Hey where are you?", time: DateTime.parse('1969-07-20 10:18:04Z')),
-  //   ChatUsers(sentFrom: 444444444, messageText: "Busy! Call me in 20 mins", time: DateTime.parse('1969-07-20 06:20:04Z'))
-  // ];
+
+  InputState({Key? key});
+
   
 
   @override
   Widget build(BuildContext context) {
+    final List<String> chatUsersKeys = widget.chatUsers.keys.where((key) => key.toString().contains(this.widget.searchInput)).toList();
+    print(this.widget.searchInput);
     return ListView.builder(
-  itemCount: chatUsers.length,
-  shrinkWrap: true,
-  padding: EdgeInsets.only(top: 16),
-  itemBuilder: (context, index){
-    return ConversationList(
-      sentFrom: chatUsers.keys.elementAt(index).toString(),
-      messageText: chatUsers.values.elementAt(index)[0].messageText.toString(),
-      time: chatUsers.values.elementAt(index)[0].time,
+      itemCount: chatUsersKeys.length,
+      shrinkWrap: true,
+    
+      padding: EdgeInsets.only(top: 16),
+      itemBuilder: (context, index) {
+        print(this.widget.searchInput);
+        return ConversationList(
+          sentFrom: chatUsersKeys[index].toString(),
+          messageText: widget.chatUsers[chatUsersKeys[index]]![widget.chatUsers[chatUsersKeys[index]]!.length - 1]
+              .text,
+          time: widget.chatUsers[chatUsersKeys[index]]![widget.chatUsers[chatUsersKeys[index]]!.length - 1]
+              .time,
+          messages: widget.chatUsers[chatUsersKeys[index]] as List<Message>,
+        );
+      },
     );
-  },
-);
   }
 }
