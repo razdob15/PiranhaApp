@@ -1,26 +1,33 @@
 var express = require('express');
-const axios = require('axios')
+const axios = require('axios');
 
 var router = express.Router();
 
-router.get('/:userId', async function(req, res) {
-  axios
-  .get(`https://${req.params.userId}`)
-  .then(serverRes => {
-    res.send(serverRes.data);
-  })
-  .catch(error => {
-    console.error(error)
-  })
-});
+const axiosClient = axios.create({
+  baseURL: 'https://gitlab.com/'
+})
 
-router.post('/:userId', async function(req, res){
-  const serverRes = await axios.post('<https://test.org/post>', req.body, {
-  headers: {
-    'Content-Type': 'application/json'
+router.get('/:userId', async function(req, res) {
+  try {
+    const serverRes = await axiosClient.get(`${req.params.userId}`);
+    res.send(serverRes.data);
+  } catch (error) {
+    console.error(error);
   }
 });
 
-res.send('data sent to server');
+router.post('/new-message', async function(req, res){
+  try {
+    const serverRes = await axiosClient.post('new-message',
+    req.body, 
+    {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    res.send('data sent to server');
+  } catch (error) {
+    console.error(error);
+  }
 });
 module.exports = router;
