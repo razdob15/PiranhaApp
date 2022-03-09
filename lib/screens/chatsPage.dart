@@ -19,6 +19,7 @@ class ChatPage extends StatefulWidget {
 class InputState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
+    print(widget.chatUsers['2']![0].currUserId + ' ' + widget.chatUsers['2']![0].currUserId);
     return Scaffold(
       body: Column(children: [
         Image.asset(

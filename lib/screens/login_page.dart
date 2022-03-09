@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
         messages[currMessage['recievedUserID'].toString()];
     messagesList.add(Message(
       currUserId: currMessage['sentUserID'].toString(),
-      senderId: currMessage['recievedUserID'].toString(),
+      senderId: currMessage['sentUserID'].toString(),
       text: currMessage['content'],
       time: DateTime.parse(currMessage['timestamp']),
     ));
@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
     messages[currMessage['recievedUserID'].toString()] = <Message>[
       Message(
         currUserId: currMessage['sentUserID'].toString(),
-        senderId: currMessage['recievedUserID'].toString(),
+        senderId: currMessage['sentUserID'].toString(),
         text: currMessage['content'],
         time: DateTime.parse(currMessage['timestamp']),
       )
