@@ -3,8 +3,7 @@ import 'package:piranhaapp/widgets/message.dart';
 
 class SinglePageChat extends StatefulWidget {
   final String sentFrom;
-  final String me;
-  const SinglePageChat({Key? key,required this.sentFrom, required this.me}) : super(key: key);
+  const SinglePageChat({Key? key,required this.sentFrom}) : super(key: key);
   @override
   _SinglePageChatState createState() => _SinglePageChatState();
 }
