@@ -40,7 +40,7 @@ class PiranhaApp extends StatelessWidget {
         ),
       ),
       home: Scaffold(
-          body: ChatPage()),
+          body: LoginPage()),
     );
   }
 }

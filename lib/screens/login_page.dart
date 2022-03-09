@@ -1,5 +1,11 @@
+import 'dart:collection';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:piranhaapp/main.dart';
+import 'package:piranhaapp/screens/chatsPage.dart';
+import 'package:piranhaapp/utils/user_util.dart';
+import 'package:piranhaapp/widgets/message.dart';
 import '../../widgets/button.dart';
 import '../services/socket_service.dart';
 import '../widgets/input_widget.dart';
@@ -13,15 +19,17 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final String HARDCODED_USERNAME = "admin";
+  final String HARDCODED_USERNAME = "1";
 
-  final String HARDCODED_PASSWORD = "admin";
+  final String HARDCODED_PASSWORD = "1234";
 
   late IO.Socket socket;
 
   String username = "";
 
   String password = "";
+
+  final HashMap<String, List<Message>> messages = HashMap();
 
   @override
   Widget build(BuildContext context) {
@@ -70,46 +78,95 @@ class _LoginPageState extends State<LoginPage> {
 
   void manageLogin(bool isUserExists) {
     if (isUserExists) {
+      changeUserID(username);
+      // fetchLocation();
       initSocket();
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ChatPage(chatUsers: messages)));
+    } else {
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Not Connected'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: Text(
+                'OK',
+                style: TextStyle(color: Theme.of(context).primaryColor),
+              ),
+            ),
+          ],
+        ),
+      );
     }
-
-    // showDialog<String>(
-    //   context: context,
-    //   builder: (BuildContext context) => AlertDialog(
-    //     title: isUserExists
-    //         ? const Text('Connected')
-    //         : const Text('Not Connected'),
-    //     actions: <Widget>[
-    //       TextButton(
-    //         onPressed: () => Navigator.pop(context, 'OK'),
-    //         child: Text(
-    //           'OK',
-    //           style: TextStyle(color: Theme.of(context).primaryColor),
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 
   void initSocket() {
     final SocketService socketService = injector.get<SocketService>();
-    socketService.createSocketConnection((data) {
-      showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-                title: Text(data.toString()),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'),
-                    child: Text(
-                      'OK',
-                      style: TextStyle(color: Theme.of(context).primaryColor),
-                    ),
-                  ),
-                ],
-              ));
-      print("object");
-    });
+
+    socketService.createSocketConnection((data, messages) {
+      var json = jsonDecode(data);
+      for (var i = 0; i < json.length; i++) {
+        if (json[i]['sentUserID'].toString() == username) {
+          if (messages.containsKey(json[i]['recievedUserID'].toString())) {
+            addMessageWhenSender(json[i], messages);
+          } else {
+            initSentMessageList(json[i], messages);
+          }
+        } else {
+          if (messages.containsKey(json[i]['sentUserID'].toString())) {
+            addMessageWhenReciever(json[i], messages);
+          } else {
+            initRecievedMessageList(json[i], messages);
+          }
+        }
+      }
+    }, messages);
+  }
+
+  void addMessageWhenSender(currMessage, messages) {
+    List<Message> messagesList =
+        messages[currMessage['recievedUserID'].toString()];
+    messagesList.add(Message(
+      currUserId: currMessage['sentUserID'].toString(),
+      senderId: currMessage['recievedUserID'].toString(),
+      text: currMessage['content'],
+      time: DateTime.parse(currMessage['timestamp']),
+    ));
+    messages[currMessage['recievedUserID'].toString()] = messagesList;
+  }
+
+  void addMessageWhenReciever(currMessage, messages) {
+    List<Message> messagesList = messages[currMessage['sentUserID'].toString()];
+    messagesList.add(Message(
+      currUserId: currMessage['recievedUserID'].toString(),
+      senderId: currMessage['sentUserID'].toString(),
+      text: currMessage['content'],
+      time: DateTime.parse(currMessage['timestamp']),
+    ));
+    messages[currMessage['sentUserID'].toString()] = messagesList;
+  }
+
+  void initRecievedMessageList(currMessage, messages) {
+    messages[currMessage['sentUserID'].toString()] = <Message>[
+      Message(
+        currUserId: currMessage['recievedUserID'].toString(),
+        senderId: currMessage['sentUserID'].toString(),
+        text: currMessage['content'],
+        time: DateTime.parse(currMessage['timestamp']),
+      )
+    ];
+  }
+
+  void initSentMessageList(currMessage, messages) {
+    messages[currMessage['recievedUserID'].toString()] = <Message>[
+      Message(
+        currUserId: currMessage['sentUserID'].toString(),
+        senderId: currMessage['recievedUserID'].toString(),
+        text: currMessage['content'],
+        time: DateTime.parse(currMessage['timestamp']),
+      )
+    ];
   }
 }
