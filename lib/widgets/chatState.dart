@@ -43,7 +43,7 @@ class _ConversationListState extends State<ConversationList> {
           border: const Border(
             bottom: BorderSide(width: 1.0, color: Colors.white),
           ),
-          color: Colors.green[50],
+          color: Theme.of(context).primaryColor,
         ),
         child: Row(
           children: <Widget>[
@@ -54,7 +54,6 @@ class _ConversationListState extends State<ConversationList> {
                     radius: 40.0,
                     backgroundImage: NetworkImage(
                         'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
-                    backgroundColor: Colors.transparent,
                   ),
                   const SizedBox(
                     width: 16,
@@ -67,14 +66,14 @@ class _ConversationListState extends State<ConversationList> {
                         children: <Widget>[
                           Text(
                             widget.sentFrom,
-                            style: const TextStyle(fontSize: 16),
+                            style: const TextStyle(fontSize: 20, color: Colors.white),
                           ),
                           const SizedBox(
                             height: 6,
                           ),
                           Text(widget.messageText,
-                              style: TextStyle(
-                                  fontSize: 13, color: Colors.grey.shade600))
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white))
                         ],
                       ),
                     ),
@@ -83,7 +82,7 @@ class _ConversationListState extends State<ConversationList> {
               ),
             ),
             Text('${widget.time.hour}:${widget.time.minute}',
-                style: const TextStyle(fontSize: 12))
+                style: const TextStyle(fontSize: 12, color: Colors.white))
           ],
         ),
       ),

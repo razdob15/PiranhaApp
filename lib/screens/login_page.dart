@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('assets/logo.jpeg'),
+            Image.asset('logo.jpeg'),
             Column(
               children: [
                 GeneralInput(

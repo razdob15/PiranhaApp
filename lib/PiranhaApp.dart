@@ -8,13 +8,13 @@ class PiranhaApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var abc;
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         primaryColor: const Color(0xff224FB4),
         primaryColorDark: const Color(0xff0A3B51),
         primaryColorLight: const Color(0xff849DA7),
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         scaffoldBackgroundColor: Colors.black,
         primarySwatch: const MaterialColor(
           0xff224FB4,
@@ -40,12 +40,6 @@ class PiranhaApp extends StatelessWidget {
         ),
       ),
       home: Scaffold(
-        
-          appBar: AppBar(
-            title: Text('Piranha'),
-            centerTitle: true,
-            backgroundColor:  Color.fromARGB(255, 35, 84, 126),
-          ),
           body: ChatPage()),
     );
   }
