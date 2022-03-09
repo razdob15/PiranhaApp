@@ -43,7 +43,11 @@ void sendLocationToServer(
       body: jsonEncode({
         'latitude': currentLocation.latitude,
         'longitude': currentLocation.longitude,
-        'userId': 5,
+        'userId': getUserID(),
         'time': currentTime.toLocal().toString()
       }));
+}
+
+getUserID() {
+  return '123456789';
 }
