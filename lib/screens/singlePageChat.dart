@@ -6,7 +6,9 @@ import 'package:piranhaapp/widgets/message.dart';
 class SinglePageChat extends StatefulWidget {
   final String sentFrom;
   final List<Message> messages;
-  const SinglePageChat({Key? key, required this.sentFrom, required this.messages}) : super(key: key);
+  const SinglePageChat(
+      {Key? key, required this.sentFrom, required this.messages})
+      : super(key: key);
   @override
   _SinglePageChatState createState() => _SinglePageChatState();
 }
@@ -55,87 +57,91 @@ class _SinglePageChatState extends State<SinglePageChat> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        flexibleSpace: SafeArea(
-          child: Container(
-            padding: EdgeInsets.only(right: 16),
-            child: Row(
-              children: <Widget>[
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(widget.messages[widget.messages.length -1].text);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.black,
+    ScrollController _scrollController = new ScrollController();
+    Scaffold sc = Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.white,
+          flexibleSpace: SafeArea(
+            child: Container(
+              padding: EdgeInsets.only(right: 16),
+              child: Row(
+                children: <Widget>[
+                  IconButton(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pop(widget.messages[widget.messages.length - 1]);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 2,
-                ),
-                const CircleAvatar(
-                  backgroundImage: NetworkImage(
-                      "https://randomuser.me/api/portraits/men/5.jpg"),
-                  maxRadius: 20,
-                ),
-                const SizedBox(
-                  width: 12,
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        widget.sentFrom,
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
-                      ),
-                      const SizedBox(
-                        height: 6,
-                      ),
-                      Text(
-                        "Online",
-                        style: TextStyle(
-                            color: Colors.grey.shade600, fontSize: 13),
-                      ),
-                    ],
+                  const SizedBox(
+                    width: 2,
                   ),
-                ),
-                const Icon(
-                  Icons.settings,
-                  color: Colors.black54,
-                ),
-              ],
+                  const CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        "https://randomuser.me/api/portraits/men/5.jpg"),
+                    maxRadius: 20,
+                  ),
+                  const SizedBox(
+                    width: 12,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          widget.sentFrom,
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        Text(
+                          "Online",
+                          style: TextStyle(
+                              color: Colors.grey.shade600, fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Icon(
+                    Icons.settings,
+                    color: Colors.black54,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.only(top: 10),
-        child: Stack(
-          children: <Widget>[
-            ListView.builder(
-              itemCount: widget.messages.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return Row(
-                  children: [
-                    Flexible(
-                        child: SizedBox(
-                      height: 60,
-                      child: widget.messages[index],
-                    ))
-                  ],
-                );
-              },
-            ),
+        body: Column(
+          children: [
+            Expanded(
+                child: Stack(children: <Widget>[
+              ListView.builder(
+                controller: _scrollController,
+                itemCount: widget.messages.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return Row(
+                    children: [
+                      Flexible(
+                          child: SizedBox(
+                        height: 60,
+                        child: widget.messages[index],
+                      ))
+                    ],
+                  );
+                },
+              )
+            ])),
             Align(
-              alignment: Alignment.bottomLeft,
+              alignment: Alignment.bottomCenter,
               child: Container(
                 padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
                 height: 60,
@@ -164,17 +170,17 @@ class _SinglePageChatState extends State<SinglePageChat> {
                         String currUserId =
                             (chatUsers[int.parse(widget.sentFrom)])![0]
                                 .currUserId;
-                        // final SocketService socketService =
-                        //     injector.get<SocketService>();
-                        //     socketService.socket.emit('sendMessage', messageText);
+                        final SocketService socketService =
+                            injector.get<SocketService>();
+                            socketService.socket.emit('sendMessage', messageText);
                         setState(() {
                           widget.messages.add(Message(
-                            text: messageText,
-                            time: DateTime.now(),
-                            currUserId: currUserId,
-                            senderId: currUserId));
+                              text: messageText,
+                              time: DateTime.now(),
+                              currUserId: currUserId,
+                              senderId: currUserId));
                         });
-                        
+
                         myController.clear();
                       },
                       child: Icon(
@@ -190,8 +196,10 @@ class _SinglePageChatState extends State<SinglePageChat> {
               ),
             ),
           ],
-        ),
-      ),
-    );
+        ));
+
+    Future(() => _scrollController.jumpTo(_scrollController.position.maxScrollExtent));
+
+    return sc;
   }
 }

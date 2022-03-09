@@ -1,11 +1,14 @@
-import 'dart:collection';
+// import 'dart:collection';
+// import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:piranhaapp/widgets/message.dart';
 import 'chatState.dart';
-import 'package:piranhaapp/widgets/message.dart';
+// import 'package:piranhaapp/widgets/message.dart';
 
 class Listtt extends StatefulWidget {
+  String searchInput;
+  Listtt( {Key? key, required this.searchInput}) : super(key: key);
   @override
   State<StatefulWidget> createState() {
     return InputState(currUserId: 111111111);
@@ -49,23 +52,25 @@ class InputState extends State<Listtt> {
     ]
   };
 
+  
+
   @override
   Widget build(BuildContext context) {
+    final List<int> chatUsersKeys = chatUsers.keys.where((key) => key.toString().contains(this.widget.searchInput)).toList();
+    print(this.widget.searchInput);
     return ListView.builder(
-      itemCount: chatUsers.length,
+      itemCount: chatUsersKeys.length,
       shrinkWrap: true,
       padding: EdgeInsets.only(top: 16),
       itemBuilder: (context, index) {
+        print(this.widget.searchInput);
         return ConversationList(
-          sentFrom: chatUsers.keys.elementAt(index).toString(),
-          messageText: chatUsers.values
-              .elementAt(index)[chatUsers.values.elementAt(index).length - 1]
-              .text
-              .toString(),
-          time: chatUsers.values
-              .elementAt(index)[chatUsers.values.elementAt(index).length - 1]
+          sentFrom: chatUsersKeys[index].toString(),
+          messageText: chatUsers[chatUsersKeys[index]]![chatUsers[chatUsersKeys[index]]!.length - 1]
+              .text,
+          time: chatUsers[chatUsersKeys[index]]![chatUsers[chatUsersKeys[index]]!.length - 1]
               .time,
-          messages: chatUsers.values.elementAt(index),
+          messages: chatUsers[chatUsersKeys[index]] as List<Message>,
         );
       },
     );

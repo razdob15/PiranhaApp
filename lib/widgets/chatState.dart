@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:piranhaapp/screens/singlePageChat.dart';
 import 'package:piranhaapp/widgets/message.dart';
+import 'package:intl/intl.dart';
 
 class ConversationList extends StatefulWidget {
   String sentFrom;
@@ -31,7 +32,8 @@ class _ConversationListState extends State<ConversationList> {
                   sentFrom: widget.sentFrom, messages: widget.messages)),
         )
             .then((value) {
-          this.widget.messageText = value;
+          this.widget.messageText = value.text;
+          this.widget.time = value.time;
           setState(() {
           });
         });
@@ -82,7 +84,7 @@ class _ConversationListState extends State<ConversationList> {
                 ],
               ),
             ),
-            Text('${widget.time.hour}:${widget.time.minute}',
+            Text(DateFormat.Hm().format(widget.time),
                 style: const TextStyle(fontSize: 12))
           ],
         ),

@@ -4,6 +4,7 @@ import '../widgets/searchBar.dart';
 
 class ChatPage extends StatefulWidget {
 
+String searchInput = '';
 
   @override
   State<StatefulWidget> createState() {
@@ -15,11 +16,23 @@ class InputState extends State<ChatPage> {
   
   @override
   Widget build(BuildContext context) {
+    
     return Column(
       children: [
-        SearchBar(),
-        Flexible(child: Listtt()),
+        SearchBar(
+         onChange: (value) {
+          setState(() {
+            this.widget.searchInput = value.toLowerCase();
+          });
+        }
+          ),
+        Flexible(child: Listtt(searchInput: this.widget.searchInput)),
       ]
     );
   }
+}
+
+
+Flexible getListttt(search) {
+  return Flexible(child: Listtt(searchInput: search));
 }

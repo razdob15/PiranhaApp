@@ -41,7 +41,7 @@ class PiranhaApp extends StatelessWidget {
       ),
       home: Scaffold(
           appBar: AppBar(
-            title: Text('ffff'),
+            title: Text('Piranha'),
             centerTitle: true,
             backgroundColor: Colors.green,
           ),
