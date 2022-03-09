@@ -5,12 +5,16 @@ class SocketService {
 
   createSocketConnection(Function onConnected) {
     try {
-      socket = IO.io('http://10.10.244.50:3000', <String, dynamic>{
+      socket = IO.io('http://localhost:3000', <String, dynamic>{
         'transports': ['websocket'],
         'autoConnect': false,
       });
       socket.connect();
-      this.socket.on("connect", (data) => onConnected(data));
+      this.socket.on("connect", (_) {
+        this.socket.emit('getInfo');
+        print("cool");
+        this.socket.on("connected", (data) => onConnected(data));
+        });
       this.socket.on("reconnect", (_) => print("Reconnected"));
     } catch (e) {
       print(e.toString());

@@ -94,20 +94,22 @@ class _LoginPageState extends State<LoginPage> {
 
   void initSocket() {
     final SocketService socketService = injector.get<SocketService>();
-    socketService.createSocketConnection((data) => showDialog<String>(
+    socketService.createSocketConnection((data) {
+      showDialog<String>(
           context: context,
           builder: (BuildContext context) => AlertDialog(
-            title: Text(data),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: Text(
-                  'OK',
-                  style: TextStyle(color: Theme.of(context).primaryColor),
-                ),
-              ),
-            ],
-          ),
-        ));
+                title: Text(data.toString()),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: Text(
+                      'OK',
+                      style: TextStyle(color: Theme.of(context).primaryColor),
+                    ),
+                  ),
+                ],
+              ));
+      print("object");
+    });
   }
 }
