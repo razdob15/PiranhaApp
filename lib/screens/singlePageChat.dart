@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:piranhaapp/main.dart';
 import 'package:piranhaapp/services/socket_service.dart';
+import 'package:piranhaapp/utils/user_util.dart';
 import 'package:piranhaapp/widgets/message.dart';
 
 class SinglePageChat extends StatefulWidget {
@@ -14,38 +15,6 @@ class SinglePageChat extends StatefulWidget {
 }
 
 class _SinglePageChatState extends State<SinglePageChat> {
-  final Map<int, List<Message>> chatUsers = {
-    111111111: [
-      Message(
-          text: "Hello Will",
-          time: DateTime.parse('1969-07-21 06:11:04Z'),
-          currUserId: "Will",
-          senderId: "Tom"),
-      Message(
-          text: "hi Tom",
-          time: DateTime.parse('1969-07-23 06:18:04Z'),
-          currUserId: "Will",
-          senderId: "Will")
-    ],
-    2222222222: [
-      Message(
-          text: "Hi Will",
-          time: DateTime.parse('2020-07-20 06:18:04Z'),
-          currUserId: "Will",
-          senderId: "Maya"),
-      Message(
-          text: "hi Maya",
-          time: DateTime.parse('2020-07-20 06:23:04Z'),
-          currUserId: "Will",
-          senderId: "Will"),
-      Message(
-          text: "By",
-          time: DateTime.parse('2020-07-20 06:23:04Z'),
-          currUserId: "Will",
-          senderId: "Maya")
-    ]
-  };
-
   final myController = TextEditingController();
 
   @override
@@ -57,7 +26,7 @@ class _SinglePageChatState extends State<SinglePageChat> {
 
   @override
   Widget build(BuildContext context) {
-    ScrollController _scrollController = new ScrollController();
+    ScrollController _scrollController = ScrollController();
     Scaffold sc = Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -65,7 +34,7 @@ class _SinglePageChatState extends State<SinglePageChat> {
           backgroundColor: Colors.white,
           flexibleSpace: SafeArea(
             child: Container(
-              padding: EdgeInsets.only(right: 16),
+              padding: const EdgeInsets.only(right: 16),
               child: Row(
                 children: <Widget>[
                   IconButton(
@@ -96,7 +65,7 @@ class _SinglePageChatState extends State<SinglePageChat> {
                       children: <Widget>[
                         Text(
                           widget.sentFrom,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(
@@ -143,37 +112,35 @@ class _SinglePageChatState extends State<SinglePageChat> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
+                padding: const EdgeInsets.only(left: 10, bottom: 10, top: 10),
                 height: 60,
                 width: double.infinity,
                 color: Colors.white,
                 child: Row(
                   children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     Expanded(
                       child: TextField(
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                             hintText: "Write message...",
                             hintStyle: TextStyle(color: Colors.black54),
                             border: InputBorder.none),
                         controller: myController,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 15,
                     ),
                     FloatingActionButton(
                       onPressed: () {
                         String messageText = myController.text;
-                        String currUserId =
-                            (chatUsers[int.parse(widget.sentFrom)])![0]
-                                .currUserId;
+                        String currUserId = getUserID();
                         final SocketService socketService =
                             injector.get<SocketService>();
-                            socketService.socket.emit('sendMessage', messageText);
-                        setState(() {
+                        socketService.socket.emit('sendMessage', messageText);
+                         setState(() {
                           widget.messages.add(Message(
                               text: messageText,
                               time: DateTime.now(),
@@ -183,7 +150,7 @@ class _SinglePageChatState extends State<SinglePageChat> {
 
                         myController.clear();
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.send,
                         color: Colors.white,
                         size: 18,
@@ -198,7 +165,8 @@ class _SinglePageChatState extends State<SinglePageChat> {
           ],
         ));
 
-    Future(() => _scrollController.jumpTo(_scrollController.position.maxScrollExtent));
+    Future(() =>
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent));
 
     return sc;
   }
