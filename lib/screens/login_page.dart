@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:piranhaapp/main.dart';
 import 'package:piranhaapp/screens/chatsPage.dart';
 import 'package:piranhaapp/utils/location_util.dart';
-import 'package:piranhaapp/utils/user_util.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:piranhaapp/widgets/message.dart';
 import '../../widgets/button.dart';
 import '../services/socket_service.dart';
@@ -38,14 +38,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Center(
           child: SizedBox(
         width: MediaQuery.of(context).size.width / 2,
         child: isLoading
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                
                 children: [
                   Image.asset('assets/logo.jpeg'),
                   Column(
@@ -64,8 +62,8 @@ class _LoginPageState extends State<LoginPage> {
                         labelText: "Enter Password",
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 75),
-                      Button(() {
-                        if (manageLogin(username == HARDCODED_USERNAME &&
+                      Button(() async {
+                        if (await manageLogin(username == HARDCODED_USERNAME &&
                             password == HARDCODED_PASSWORD)) {
                           isLoading = true;
                         }
@@ -88,9 +86,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  bool manageLogin(bool isUserExists) {
+  Future<bool> manageLogin(bool isUserExists) async {
     if (isUserExists) {
-      changeUserID(username);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('userId', username);
       initSocket();
       fetchLocation();
       return true;
@@ -100,9 +99,10 @@ class _LoginPageState extends State<LoginPage> {
         builder: (BuildContext context) => Container(
           child: AlertDialog(
             backgroundColor: Theme.of(context).primaryColorDark,
-            
-            
-            title: const Text("Oops...' +' username or password are incorrect", style: TextStyle(color: Colors.white, fontSize: 30),),
+            title: const Text(
+              "Oops...' +' username or password are incorrect",
+              style: TextStyle(color: Colors.white, fontSize: 30),
+            ),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.pop(context, 'OK'),

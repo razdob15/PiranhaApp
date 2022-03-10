@@ -3,6 +3,7 @@ import 'package:piranhaapp/main.dart';
 import 'package:piranhaapp/services/socket_service.dart';
 import 'package:piranhaapp/utils/user_util.dart';
 import 'package:piranhaapp/widgets/message.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../services/socket_service.dart';
 
 class SinglePageChat extends StatefulWidget {
@@ -17,9 +18,7 @@ class SinglePageChat extends StatefulWidget {
 
 class _SinglePageChatState extends State<SinglePageChat> {
   final myController = TextEditingController();
-  final SocketService socketService =
-                            injector.get<SocketService>();
-
+  final SocketService socketService = injector.get<SocketService>();
 
   @override
   void dispose() {
@@ -31,17 +30,17 @@ class _SinglePageChatState extends State<SinglePageChat> {
   @override
   Widget build(BuildContext context) {
     ScrollController _scrollController = ScrollController();
-      socketService.socket.on('newMessage', (message) => 
-        Row(
-                children: [
-                  Flexible(
-                      child: SizedBox(
-                    height: 50,
-                    child: message,
-                  ))
-                ],
-              )
-      );
+    socketService.socket.on(
+        'newMessage',
+        (message) => Row(
+              children: [
+                Flexible(
+                    child: SizedBox(
+                  height: 50,
+                  child: message,
+                ))
+              ],
+            ));
     Scaffold sc = Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),
@@ -49,12 +48,10 @@ class _SinglePageChatState extends State<SinglePageChat> {
             elevation: 0,
             automaticallyImplyLeading: false,
             backgroundColor: Theme.of(context).primaryColorDark,
-            
             flexibleSpace: SafeArea(
               child: Container(
                 padding: const EdgeInsets.only(right: 16),
                 child: Row(
-                  
                   children: <Widget>[
                     IconButton(
                       onPressed: () {
@@ -69,7 +66,6 @@ class _SinglePageChatState extends State<SinglePageChat> {
                     ),
                     const SizedBox(
                       width: 8,
-                
                     ),
                     const CircleAvatar(
                       radius: 40.0,
@@ -94,13 +90,11 @@ class _SinglePageChatState extends State<SinglePageChat> {
                           ),
                           Text(
                             "Online",
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 13),
+                            style: TextStyle(color: Colors.white, fontSize: 13),
                           ),
                         ],
                       ),
                     ),
-                
                   ],
                 ),
               ),
@@ -152,16 +146,18 @@ class _SinglePageChatState extends State<SinglePageChat> {
                       width: 15,
                     ),
                     FloatingActionButton(
-                      onPressed: () {
+                      onPressed: () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
                         String messageText = myController.text;
-                        String currUserId = getUserID();
-                            var messageToSend = Message(
-                              text: messageText,
-                              time: DateTime.now(),
-                              currUserId: currUserId,
-                              senderId: currUserId);
-                            socketService.sendMessage(messageToSend);
-                         setState(() {
+                        String currUserId = prefs.getString('userId') ?? '';
+                        var messageToSend = Message(
+                            text: messageText,
+                            time: DateTime.now(),
+                            currUserId: currUserId,
+                            senderId: currUserId);
+                        socketService.sendMessage(messageToSend);
+                        setState(() {
                           widget.messages.add(Message(
                               text: messageText,
                               time: DateTime.now(),

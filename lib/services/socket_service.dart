@@ -12,16 +12,16 @@ class SocketService {
   createSocketConnection(Function onConnected, HashMap messages) {
     try {
       socket = IO.io('http://10.10.244.47:3000', <String, dynamic>{
-      'transports': ['websocket'],
-      'autoConnect': false,
-    });
-    socket.connect();
-    socket.on("connect", (_) {
-      socket.emit('getInfo');
-      print("cool");
-      socket.on("userMessages", (data) => onConnected(data, messages));
-    });
-    socket.on("reconnect", (_) => print("Reconnected"));
+        'transports': ['websocket'],
+        'autoConnect': false,
+      });
+      socket.connect();
+      socket.on("connect", (_) {
+        socket.emit('getInfo');
+        print("cool");
+        socket.on("userMessages", (data) => onConnected(data, messages));
+      });
+      socket.on("reconnect", (_) => print("Reconnected"));
     } catch (e) {
       print(e.toString());
     }
