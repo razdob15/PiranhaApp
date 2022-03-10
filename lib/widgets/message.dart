@@ -26,17 +26,21 @@ class Message extends StatelessWidget {
           nipWidth: 30,
           nipHeight: 15,
           nip: isCurrUser() ? BubbleNip.rightBottom : BubbleNip.leftBottom,
-          color: isCurrUser() ? Theme.of(context).primaryColorLight : Colors.white,
+          color: isCurrUser() ? Theme.of(context).primaryColorLight :  Theme.of(context).primaryColorDark,
           child: Column(mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: isCurrUser() ? CrossAxisAlignment.start : CrossAxisAlignment.end, 
           children: [
-            Text(text),
+            Text(text, style: const TextStyle(
+                fontSize: 15,
+                color: Colors.white,
+                
+              ),),
             Text(
               DateFormat.Hm().format(time),
               textAlign: TextAlign.left,
               style: const TextStyle(
-                fontWeight: FontWeight.bold,
                 fontSize: 10,
+                color: Colors.white
               ),
             ),
           ]),

@@ -14,7 +14,7 @@ class SocketService {
     socket.on("connect", (_) {
       socket.emit('getInfo');
       print("cool");
-      socket.on("connected", (data) => onConnected(data, messages));
+      socket.on("userMessages", (data) => onConnected(data, messages));
     });
     socket.on("reconnect", (_) => print("Reconnected"));
   }

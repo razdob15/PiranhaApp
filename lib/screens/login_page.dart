@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:piranhaapp/main.dart';
 import 'package:piranhaapp/screens/chatsPage.dart';
@@ -37,12 +38,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: Center(
           child: SizedBox(
         width: MediaQuery.of(context).size.width / 2,
         child: isLoading
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                
                 children: [
                   Image.asset('assets/logo.jpeg'),
                   Column(
@@ -94,17 +97,22 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: const Text('Not Connected'),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: Text(
-                'OK',
-                style: TextStyle(color: Theme.of(context).primaryColor),
+        builder: (BuildContext context) => Container(
+          child: AlertDialog(
+            backgroundColor: Theme.of(context).primaryColorDark,
+            
+            
+            title: const Text("Oops...' +' username or password are incorrect", style: TextStyle(color: Colors.white, fontSize: 30),),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'OK'),
+                child: Text(
+                  'OK',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
       return false;

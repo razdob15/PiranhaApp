@@ -69,14 +69,14 @@ class _ConversationListState extends State<ConversationList> {
                         children: <Widget>[
                           Text(
                             widget.sentFrom,
-                            style: const TextStyle(fontSize: 20, color: Color.fromARGB(255, 219, 218, 218)),
+                            style: const TextStyle(fontSize: 25, color: Color.fromARGB(255, 219, 218, 218), fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(
                             height: 6,
                           ),
                           Text(widget.messageText,
                               style: const TextStyle(
-                                  fontSize: 15, color: Color.fromARGB(255, 219, 218, 218)))
+                                  fontSize: 16, color: Color.fromARGB(255, 219, 218, 218)))
                         ],
                       ),
                     ),
@@ -85,7 +85,7 @@ class _ConversationListState extends State<ConversationList> {
               ),
             ),
             Text(DateFormat.Hm().format(widget.time),
-                style: const TextStyle(fontSize: 12))
+                style: const TextStyle(fontSize: 18, color: Color.fromARGB(255, 219, 218, 218), fontWeight: FontWeight.bold))
           ],
         ),
       ),
