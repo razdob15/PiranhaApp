@@ -7,5 +7,6 @@ getUserID() {
 
 changeUserID(username) {
   final LocalStorage storage = LocalStorage('PiranhaApp');
+  print(storage.getItem('userId'));
   storage.setItem('userId', username);
 }
