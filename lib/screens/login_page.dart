@@ -20,7 +20,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final String HARDCODED_USERNAME = "1";
+  final String HARDCODED_USERNAME = "123456789";
 
   final String HARDCODED_PASSWORD = "1234";
 
@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
     if (isUserExists) {
       changeUserID(username);
       initSocket();
-      fetchLocation();
+      // fetchLocation();
       return true;
     } else {
       showDialog<String>(
@@ -115,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
     final SocketService socketService = injector.get<SocketService>();
 
     socketService.createSocketConnection((data, messages) {
-      var json = jsonDecode(data);
+      var json = data;
       for (var i = 0; i < json.length; i++) {
         if (json[i]['sentUserID'].toString() == username) {
           if (messages.containsKey(json[i]['recievedUserID'].toString())) {

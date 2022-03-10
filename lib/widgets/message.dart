@@ -44,4 +44,11 @@ class Message extends StatelessWidget {
       ),
     );
   }
+
+  Map<String, dynamic> toJson() => {
+      'recievedUserID': currUserId,
+      'sentUserID': senderId,
+      'content': text,
+      'timestamp': time.toLocal().toString(),
+      };
 }
