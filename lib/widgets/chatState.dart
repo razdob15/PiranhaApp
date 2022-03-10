@@ -85,7 +85,7 @@ class _ConversationListState extends State<ConversationList> {
               ),
             ),
             Text(DateFormat.Hm().format(widget.time),
-                style: const TextStyle(fontSize: 18, color: Color.fromARGB(255, 219, 218, 218), fontWeight: FontWeight.bold))
+                style: const TextStyle(fontSize: 12, color: Colors.white))
           ],
         ),
       ),

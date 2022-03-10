@@ -21,7 +21,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final String HARDCODED_USERNAME = "1";
+  final String HARDCODED_USERNAME = "123456789";
 
   final String HARDCODED_PASSWORD = "1234";
 
@@ -92,24 +92,20 @@ class _LoginPageState extends State<LoginPage> {
     if (isUserExists) {
       changeUserID(username);
       initSocket();
-      fetchLocation();
+      // fetchLocation();
       return true;
     } else {
       showDialog<String>(
         context: context,
-        builder: (BuildContext context) => Container(
-          child: AlertDialog(
-            backgroundColor: Theme.of(context).primaryColorDark,
-            
-            
-            title: const Text("Oops...' +' username or password are incorrect", style: TextStyle(color: Colors.white, fontSize: 30),),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () => Navigator.pop(context, 'OK'),
-                child: Text(
-                  'OK',
-                  style: TextStyle(color: Colors.white),
-                ),
+        builder: (BuildContext context) => AlertDialog(
+          backgroundColor: Theme.of(context).primaryColor,
+          title: const Text('Oops.. username or password are incorrect!', style: TextStyle(fontSize: 20, color: Colors.white),),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text(
+                'OK',
+                style: TextStyle(color: Colors.white),
               ),
             ],
           ),
@@ -123,7 +119,8 @@ class _LoginPageState extends State<LoginPage> {
     final SocketService socketService = injector.get<SocketService>();
 
     socketService.createSocketConnection((data, messages) {
-      var json = jsonDecode(data);
+      print('object');
+      var json = data;
       for (var i = 0; i < json.length; i++) {
         if (json[i]['sentUserID'].toString() == username) {
           if (messages.containsKey(json[i]['recievedUserID'].toString())) {
@@ -148,7 +145,7 @@ class _LoginPageState extends State<LoginPage> {
     List<Message> messagesList =
         messages[currMessage['recievedUserID'].toString()];
     messagesList.add(Message(
-      currUserId: currMessage['sentUserID'].toString(),
+      receiverId: currMessage['recievedUserID'].toString(),
       senderId: currMessage['sentUserID'].toString(),
       text: currMessage['content'],
       time: DateTime.parse(currMessage['timestamp']),
@@ -159,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
   void addMessageWhenReciever(currMessage, messages) {
     List<Message> messagesList = messages[currMessage['sentUserID'].toString()];
     messagesList.add(Message(
-      currUserId: currMessage['recievedUserID'].toString(),
+      receiverId: currMessage['recievedUserID'].toString(),
       senderId: currMessage['sentUserID'].toString(),
       text: currMessage['content'],
       time: DateTime.parse(currMessage['timestamp']),
@@ -170,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
   void initRecievedMessageList(currMessage, messages) {
     messages[currMessage['sentUserID'].toString()] = <Message>[
       Message(
-        currUserId: currMessage['recievedUserID'].toString(),
+        receiverId: currMessage['recievedUserID'].toString(),
         senderId: currMessage['sentUserID'].toString(),
         text: currMessage['content'],
         time: DateTime.parse(currMessage['timestamp']),
@@ -181,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
   void initSentMessageList(currMessage, messages) {
     messages[currMessage['recievedUserID'].toString()] = <Message>[
       Message(
-        currUserId: currMessage['sentUserID'].toString(),
+        receiverId: currMessage['sentUserID'].toString(),
         senderId: currMessage['sentUserID'].toString(),
         text: currMessage['content'],
         time: DateTime.parse(currMessage['timestamp']),
