@@ -1,12 +1,17 @@
-import 'package:localstorage/localstorage.dart';
+// import 'package:localstorage/localstorage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-getUserID() {
-  final LocalStorage storage = LocalStorage('PiranhaApp');
-  return storage.getItem('userId');
+getUserID() async {
+  print('get');
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  print('get');
+  String myString = prefs.getString('userId') ?? '';
+  print(myString);
+  return myString;
 }
 
-changeUserID(username) {
-  final LocalStorage storage = LocalStorage('PiranhaApp');
-  // print(storage.getItem('userId'));
-  storage.setItem('userId', username);
+changeUserID(username) async {
+  print('set');
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('userId', username);
 }

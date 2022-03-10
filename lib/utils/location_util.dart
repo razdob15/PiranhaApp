@@ -1,7 +1,8 @@
 import 'dart:convert';
-import 'package:localstorage/localstorage.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
+import 'package:piranhaapp/main.dart';
+import 'package:piranhaapp/services/socket_service.dart';
 import 'package:piranhaapp/utils/user_util.dart';
 
 void fetchLocation() async {
@@ -30,7 +31,6 @@ void fetchLocation() async {
 
   location.onLocationChanged.listen((LocationData currentLocation) {
     print("##########");
-    print(getUserID());
     print("##########");
 
     sendLocationToServer(currentLocation, DateTime.now());
@@ -39,8 +39,10 @@ void fetchLocation() async {
 
 void sendLocationToServer(
     LocationData currentLocation, DateTime currentTime) async {
-  const locationServerAddress = '10.10.244.48:5000';
+  const locationServerAddress = '20.93.144.32:5000';
   const locationPath = '/location';
+
+   String userId = await getUserID();
 
   await http.post(Uri.parse('http://${locationServerAddress + locationPath}'),
       headers: <String, String>{
@@ -49,7 +51,7 @@ void sendLocationToServer(
       body: jsonEncode({
         'latitude': currentLocation.latitude,
         'longitude': currentLocation.longitude,
-        'userId': getUserID(),
+        'userId': userId,
         'time': currentTime.toLocal().toString()
       }));
 }

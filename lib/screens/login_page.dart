@@ -1,7 +1,5 @@
 import 'dart:collection';
-import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:piranhaapp/main.dart';
 import 'package:piranhaapp/screens/chatsPage.dart';
@@ -62,8 +60,8 @@ class _LoginPageState extends State<LoginPage> {
                         labelText: "Enter Password",
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 75),
-                      Button(() {
-                        if (manageLogin(username == HARDCODED_USERNAME &&
+                      Button(() async {
+                        if (await manageLogin(username == HARDCODED_USERNAME &&
                             password == HARDCODED_PASSWORD)) {
                           isLoading = true;
                         }
@@ -86,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  bool manageLogin(bool isUserExists) {
+  Future<bool> manageLogin(bool isUserExists) async {
     if (isUserExists) {
       changeUserID(username);
       initSocket();
@@ -150,6 +148,7 @@ class _LoginPageState extends State<LoginPage> {
       senderId: currMessage['sentUserID'].toString(),
       text: currMessage['content'],
       time: DateTime.parse(currMessage['timestamp']),
+      currentUser: username,
     ));
     messages[currMessage['recievedUserID'].toString()] = messagesList;
   }
@@ -161,6 +160,7 @@ class _LoginPageState extends State<LoginPage> {
       senderId: currMessage['sentUserID'].toString(),
       text: currMessage['content'],
       time: DateTime.parse(currMessage['timestamp']),
+      currentUser: username,
     ));
     messages[currMessage['sentUserID'].toString()] = messagesList;
   }
@@ -172,6 +172,7 @@ class _LoginPageState extends State<LoginPage> {
         senderId: currMessage['sentUserID'].toString(),
         text: currMessage['content'],
         time: DateTime.parse(currMessage['timestamp']),
+        currentUser: username,
       )
     ];
   }
@@ -183,6 +184,7 @@ class _LoginPageState extends State<LoginPage> {
         senderId: currMessage['sentUserID'].toString(),
         text: currMessage['content'],
         time: DateTime.parse(currMessage['timestamp']),
+        currentUser: username,
       )
     ];
   }

@@ -8,17 +8,20 @@ class Message extends StatelessWidget {
   DateTime time;
   String senderId;
   String receiverId;
+  String currentUser;
+
 
   Message(
       {Key? key,
       required this.text,
       required this.time,
       required this.receiverId,
-      required this.senderId})
+      required this.senderId,
+      required this.currentUser})
       : super(key: key);
 
   bool isCurrUser() {
-    return senderId == getUserID();
+    return senderId == currentUser;
   }
 
   @override
