@@ -51,6 +51,7 @@ class _SinglePageChatState extends State<SinglePageChat> {
               child: Container(
                 padding: const EdgeInsets.only(right: 16),
                 child: Row(
+                  
                   children: <Widget>[
                     IconButton(
                       onPressed: () {

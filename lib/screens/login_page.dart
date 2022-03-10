@@ -1,6 +1,7 @@
 import 'dart:collection';
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:piranhaapp/main.dart';
 import 'package:piranhaapp/screens/chatsPage.dart';
@@ -37,12 +38,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: Center(
           child: SizedBox(
         width: MediaQuery.of(context).size.width / 2,
         child: isLoading
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                
                 children: [
                   Image.asset('assets/logo.jpeg'),
                   Column(
@@ -104,8 +107,8 @@ class _LoginPageState extends State<LoginPage> {
                 'OK',
                 style: TextStyle(color: Colors.white),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
       return false;
