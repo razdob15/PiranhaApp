@@ -28,7 +28,10 @@ class _SinglePageChatState extends State<SinglePageChat> {
     super.dispose();
   }
 
-  SocketService.socket.on('newMessage', (message) => 
+  @override
+  Widget build(BuildContext context) {
+    ScrollController _scrollController = ScrollController();
+      socketService.socket.on('newMessage', (message) => 
         Row(
                 children: [
                   Flexible(
@@ -39,10 +42,6 @@ class _SinglePageChatState extends State<SinglePageChat> {
                 ],
               )
       );
-
-  @override
-  Widget build(BuildContext context) {
-    ScrollController _scrollController = ScrollController();
     Scaffold sc = Scaffold(
         appBar: AppBar(
           elevation: 0,

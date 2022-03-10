@@ -48,41 +48,6 @@ io.on("connection", function (client) {
     }
   });
 
-  client.on("getInfo", function () {
-    io.emit("connected", [
-      {
-        sentUserID: 1,
-        recievedUserID: 2,
-        content: "Hello",
-        timestamp: "1-2-2003",
-      },
-      {
-        sentUserID: 1,
-        recievedUserID: 2,
-        content: "Hello back",
-        timestamp: "1-2-2003",
-      },
-      {
-        sentUserID: 2,
-        recievedUserID: 1,
-        content: "Hello Bon Apetit",
-        timestamp: "1-2-2003",
-      },
-      {
-        sentUserID: 1,
-        recievedUserID: 3,
-        content: "Master",
-        timestamp: "1-2-2003",
-      },
-      {
-        sentUserID: 3,
-        recievedUserID: 1,
-        content: "You Master",
-        timestamp: "1-2-2003",
-      },
-    ]);
-  });
-
   client.on("disconnect", function () {
     console.log("client disconnect...", client.id);
     // handleDisconnect()
