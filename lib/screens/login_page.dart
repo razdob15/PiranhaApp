@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:piranhaapp/main.dart';
 import 'package:piranhaapp/utils/location_util.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../widgets/button.dart';
 import '../services/socket_service.dart';
 import '../widgets/input_widget.dart';
@@ -69,8 +70,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void manageLogin(bool isUserExists) {
+  void manageLogin(bool isUserExists) async {
     if (isUserExists) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('userId', username);
       initSocket();
       fetchLocation();
     }
@@ -111,7 +114,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ));
-      print("object");
     });
   }
 }

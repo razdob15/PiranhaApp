@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
+import 'package:piranhaapp/main.dart';
+import 'package:piranhaapp/services/socket_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void fetchLocation() async {
   Location location = Location();
@@ -33,8 +36,9 @@ void fetchLocation() async {
 
 void sendLocationToServer(
     LocationData currentLocation, DateTime currentTime) async {
-  const locationServerAddress = '10.10.244.48:5000';
+  const locationServerAddress = '20.93.144.32:5000';
   const locationPath = '/location';
+  SharedPreferences prefs = await SharedPreferences.getInstance();
 
   await http.post(Uri.parse('http://${locationServerAddress + locationPath}'),
       headers: <String, String>{
@@ -43,11 +47,7 @@ void sendLocationToServer(
       body: jsonEncode({
         'latitude': currentLocation.latitude,
         'longitude': currentLocation.longitude,
-        'userId': getUserID(),
+        'userId': prefs.get('userId'),
         'time': currentTime.toLocal().toString()
       }));
-}
-
-getUserID() {
-  return '123456789';
 }
