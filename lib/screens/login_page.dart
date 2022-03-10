@@ -89,7 +89,7 @@ class _LoginPageState extends State<LoginPage> {
     if (isUserExists) {
       changeUserID(username);
       initSocket();
-      fetchLocation();
+      // fetchLocation();
       return true;
     } else {
       showDialog<String>(
