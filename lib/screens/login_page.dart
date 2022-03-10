@@ -38,14 +38,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Center(
           child: SizedBox(
         width: MediaQuery.of(context).size.width / 2,
         child: isLoading
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                
                 children: [
                   Image.asset('assets/logo.jpeg'),
                   Column(
@@ -99,7 +97,10 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (BuildContext context) => AlertDialog(
           backgroundColor: Theme.of(context).primaryColor,
-          title: const Text('Oops.. username or password are incorrect!', style: TextStyle(fontSize: 20, color: Colors.white),),
+          title: const Text(
+            'Oops.. username or password are incorrect!',
+            style: TextStyle(fontSize: 20, color: Colors.white),
+          ),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context, 'OK'),
@@ -107,8 +108,8 @@ class _LoginPageState extends State<LoginPage> {
                 'OK',
                 style: TextStyle(color: Colors.white),
               ),
-            ],
-          ),
+            )
+          ],
         ),
       );
       return false;
