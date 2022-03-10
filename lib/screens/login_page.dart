@@ -95,13 +95,14 @@ class _LoginPageState extends State<LoginPage> {
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text('Not Connected'),
+          backgroundColor: Theme.of(context).primaryColor,
+          title: const Text('Oops.. username or password are incorrect!', style: TextStyle(fontSize: 20, color: Colors.white),),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context, 'OK'),
-              child: Text(
+              child: const Text(
                 'OK',
-                style: TextStyle(color: Theme.of(context).primaryColor),
+                style: TextStyle(color: Colors.white),
               ),
             ),
           ],

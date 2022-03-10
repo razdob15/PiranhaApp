@@ -28,7 +28,7 @@ class InputState extends State<Listtt> {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> chatUsersKeys = widget.chatUsers.keys.where((key) => key.toString().contains(this.widget.searchInput)).toList();
+    final List<String> chatUsersKeys = widget.chatUsers.keys.where((key) => key.toString().startsWith(this.widget.searchInput)).toList();
     print(this.widget.searchInput);
     return ListView.builder(
       itemCount: chatUsersKeys.length,

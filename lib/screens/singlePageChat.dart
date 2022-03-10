@@ -17,9 +17,7 @@ class SinglePageChat extends StatefulWidget {
 
 class _SinglePageChatState extends State<SinglePageChat> {
   final myController = TextEditingController();
-  final SocketService socketService =
-                            injector.get<SocketService>();
-
+  final SocketService socketService = injector.get<SocketService>();
 
   @override
   void dispose() {
@@ -31,17 +29,17 @@ class _SinglePageChatState extends State<SinglePageChat> {
   @override
   Widget build(BuildContext context) {
     ScrollController _scrollController = ScrollController();
-      socketService.socket.on('newMessage', (message) => 
-        Row(
-                children: [
-                  Flexible(
-                      child: SizedBox(
-                    height: 50,
-                    child: message,
-                  ))
-                ],
-              )
-      );
+    socketService.socket.on(
+        'newMessage',
+        (message) => Row(
+              children: [
+                Flexible(
+                    child: SizedBox(
+                  height: 50,
+                  child: message,
+                ))
+              ],
+            ));
     Scaffold sc = Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(100),
@@ -88,15 +86,13 @@ class _SinglePageChatState extends State<SinglePageChat> {
                           const SizedBox(
                             height: 6,
                           ),
-                          Text(
+                          const Text(
                             "Online",
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 13),
+                            style: TextStyle(color: Colors.white, fontSize: 13),
                           ),
                         ],
                       ),
                     ),
-                    
                   ],
                 ),
               ),
@@ -116,7 +112,7 @@ class _SinglePageChatState extends State<SinglePageChat> {
                     children: [
                       Flexible(
                           child: SizedBox(
-                        height: 60,
+                        height: 70,
                         child: widget.messages[index],
                       ))
                     ],
@@ -138,6 +134,7 @@ class _SinglePageChatState extends State<SinglePageChat> {
                     ),
                     Expanded(
                       child: TextField(
+                        textInputAction: TextInputAction.go,
                         decoration: const InputDecoration(
                             hintText: "Write message...",
                             hintStyle: TextStyle(color: Colors.black54),
@@ -155,13 +152,13 @@ class _SinglePageChatState extends State<SinglePageChat> {
                         final SocketService socketService =
                             injector.get<SocketService>();
 
-                            var messageToSend = Message(
-                              text: messageText,
-                              time: DateTime.now(),
-                              currUserId: currUserId,
-                              senderId: currUserId);
-                            socketService.sendMessage(messageToSend);
-                         setState(() {
+                        var messageToSend = Message(
+                            text: messageText,
+                            time: DateTime.now(),
+                            currUserId: currUserId,
+                            senderId: currUserId);
+                        socketService.sendMessage(messageToSend);
+                        setState(() {
                           widget.messages.add(Message(
                               text: messageText,
                               time: DateTime.now(),
