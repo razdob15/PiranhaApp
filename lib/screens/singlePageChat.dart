@@ -3,6 +3,7 @@ import 'package:piranhaapp/main.dart';
 import 'package:piranhaapp/services/socket_service.dart';
 import 'package:piranhaapp/utils/user_util.dart';
 import 'package:piranhaapp/widgets/message.dart';
+import '../services/socket_service.dart';
 
 class SinglePageChat extends StatefulWidget {
   final String sentFrom;
@@ -16,6 +17,9 @@ class SinglePageChat extends StatefulWidget {
 
 class _SinglePageChatState extends State<SinglePageChat> {
   final myController = TextEditingController();
+  final SocketService socketService =
+                            injector.get<SocketService>();
+
 
   @override
   void dispose() {
@@ -27,6 +31,17 @@ class _SinglePageChatState extends State<SinglePageChat> {
   @override
   Widget build(BuildContext context) {
     ScrollController _scrollController = ScrollController();
+      socketService.socket.on('newMessage', (message) => 
+        Row(
+                children: [
+                  Flexible(
+                      child: SizedBox(
+                    height: 50,
+                    child: message,
+                  ))
+                ],
+              )
+      );
     Scaffold sc = Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -139,7 +154,13 @@ class _SinglePageChatState extends State<SinglePageChat> {
                         String currUserId = getUserID();
                         final SocketService socketService =
                             injector.get<SocketService>();
-                        socketService.socket.emit('sendMessage', messageText);
+
+                            var messageToSend = Message(
+                              text: messageText,
+                              time: DateTime.now(),
+                              currUserId: currUserId,
+                              senderId: currUserId);
+                            socketService.sendMessage(messageToSend);
                          setState(() {
                           widget.messages.add(Message(
                               text: messageText,
