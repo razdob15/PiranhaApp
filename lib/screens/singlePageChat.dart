@@ -155,14 +155,14 @@ class _SinglePageChatState extends State<SinglePageChat> {
                         var messageToSend = Message(
                             text: messageText,
                             time: DateTime.now(),
-                            currUserId: currUserId,
+                            receiverId: currUserId,
                             senderId: currUserId);
                         socketService.sendMessage(messageToSend);
                         setState(() {
                           widget.messages.add(Message(
                               text: messageText,
                               time: DateTime.now(),
-                              currUserId: currUserId,
+                              receiverId: currUserId,
                               senderId: currUserId));
                         });
 

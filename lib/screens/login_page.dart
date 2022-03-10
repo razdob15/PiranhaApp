@@ -116,6 +116,7 @@ class _LoginPageState extends State<LoginPage> {
     final SocketService socketService = injector.get<SocketService>();
 
     socketService.createSocketConnection((data, messages) {
+      print('object');
       var json = data;
       for (var i = 0; i < json.length; i++) {
         if (json[i]['sentUserID'].toString() == username) {
@@ -141,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
     List<Message> messagesList =
         messages[currMessage['recievedUserID'].toString()];
     messagesList.add(Message(
-      currUserId: currMessage['sentUserID'].toString(),
+      receiverId: currMessage['recievedUserID'].toString(),
       senderId: currMessage['sentUserID'].toString(),
       text: currMessage['content'],
       time: DateTime.parse(currMessage['timestamp']),
@@ -152,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
   void addMessageWhenReciever(currMessage, messages) {
     List<Message> messagesList = messages[currMessage['sentUserID'].toString()];
     messagesList.add(Message(
-      currUserId: currMessage['recievedUserID'].toString(),
+      receiverId: currMessage['recievedUserID'].toString(),
       senderId: currMessage['sentUserID'].toString(),
       text: currMessage['content'],
       time: DateTime.parse(currMessage['timestamp']),
@@ -163,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
   void initRecievedMessageList(currMessage, messages) {
     messages[currMessage['sentUserID'].toString()] = <Message>[
       Message(
-        currUserId: currMessage['recievedUserID'].toString(),
+        receiverId: currMessage['recievedUserID'].toString(),
         senderId: currMessage['sentUserID'].toString(),
         text: currMessage['content'],
         time: DateTime.parse(currMessage['timestamp']),
@@ -174,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
   void initSentMessageList(currMessage, messages) {
     messages[currMessage['recievedUserID'].toString()] = <Message>[
       Message(
-        currUserId: currMessage['sentUserID'].toString(),
+        receiverId: currMessage['sentUserID'].toString(),
         senderId: currMessage['sentUserID'].toString(),
         text: currMessage['content'],
         time: DateTime.parse(currMessage['timestamp']),

@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:bubble/bubble.dart';
+import 'package:piranhaapp/utils/user_util.dart';
 
 class Message extends StatelessWidget {
   String text;
   DateTime time;
   String senderId;
-  String currUserId;
+  String receiverId;
 
   Message(
       {Key? key,
       required this.text,
       required this.time,
-      required this.currUserId,
+      required this.receiverId,
       required this.senderId})
       : super(key: key);
 
   bool isCurrUser() {
-    return this.senderId == this.currUserId;
+    return senderId == getUserID();
   }
 
   @override
@@ -67,7 +68,7 @@ class Message extends StatelessWidget {
   }
 
   Map<String, dynamic> toJson() => {
-        'recievedUserID': currUserId,
+        'recievedUserID': receiverId,
         'sentUserID': senderId,
         'content': text,
         'timestamp': time.toLocal().toString(),

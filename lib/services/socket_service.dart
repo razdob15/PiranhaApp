@@ -16,7 +16,6 @@ class SocketService {
     });
     socket.connect();
     socket.emit('getInfo', getUserID());
-    print('object');
     socket.on("userMessages", (data) => onConnected(data, messages));
   }
 
